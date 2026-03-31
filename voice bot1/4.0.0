@@ -1,0 +1,10 @@
+Name: webdriver-manager
+Version: 4.0.2
+Summary: Library provides the way to automatically manage drivers for different browsers
+Home-page: https://github.com/SergeyPirogov/webdriver_manager
+Author: Sergey Pirogov
+Author-email: automationremarks@gmail.com
+License: 
+Location: C:\Users\Asus\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages
+Requires: packaging, python-dotenv, requests
+Required-by: 
