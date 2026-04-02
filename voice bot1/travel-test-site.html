@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Carpool Booking</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    button {
+      background: teal;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background: #e0f2f1;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>🚗 Carpool Booking</h2>
+
+  <input id="from" list="locations" placeholder="Pickup (e.g. Howrah)">
+  <input id="to" list="locations" placeholder="Drop (e.g. New Town)">
+  <input id="date" type="date">
+
+  <button onclick="searchRide()">Search Ride</button>
+  <button onclick="bookRide()">Book Ride</button>
+
+  <div id="result" class="result">Waiting...</div>
+</div>
+
+<datalist id="locations"></datalist>
+
+<script>
+const locations = [
+  "Howrah",
+  "Kolkata",
+  "Salt Lake",
+  "New Town",
+  "Park Street",
+  "Dumdum",
+  "Garia",
+  "Sealdah"
+];
+
+const datalist = document.getElementById("locations");
+
+locations.forEach(loc => {
+  const option = document.createElement("option");
+  option.value = loc;
+  datalist.appendChild(option);
+});
+
+// SEARCH
+function searchRide() {
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+
+  document.getElementById("result").innerText =
+    `Searching rides from ${from} to ${to}...`;
+
+  showDrivers();
+}
+
+// BOOK
+function bookRide() {
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+
+  document.getElementById("result").innerText =
+    `✅ Ride booked from ${from} to ${to}`;
+}
+
+// MOCK DRIVERS
+function showDrivers() {
+  const drivers = [
+    "Driver A ⭐4.8",
+    "Driver B ⭐4.5",
+    "Driver C ⭐4.7"
+  ];
+
+  let html = "<b>Available Drivers:</b><br>";
+  drivers.forEach(d => html += d + "<br>");
+
+  document.getElementById("result").innerHTML = html;
+}
+</script>
+
+</body>
+</html>
