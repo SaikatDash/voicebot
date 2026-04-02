@@ -35,6 +35,294 @@
       padding: 10px;
       background: #e0f2f1;
     }
+
+    /* CHATBOT STYLES */
+    .chatbot-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: teal;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 999;
+      font-size: 28px;
+      transition: transform 0.3s;
+    }
+
+    .chatbot-icon:hover {
+      transform: scale(1.1);
+    }
+
+    .chatbot-window {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 350px;
+      height: 500px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
+      display: none;
+      flex-direction: column;
+      z-index: 998;
+      overflow: hidden;
+    }
+
+    .chatbot-window.active {
+      display: flex;
+    }
+
+    .chatbot-header {
+      background: teal;
+      color: white;
+      padding: 15px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chatbot-header button {
+      width: auto;
+      padding: 5px 10px;
+      background: rgba(255, 255, 255, 0.3);
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .chatbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      background: #f9f9f9;
+    }
+
+    .message {
+      margin-bottom: 12px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .message.bot {
+      justify-content: flex-start;
+    }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .message-bubble {
+      padding: 10px 14px;
+      border-radius: 10px;
+      max-width: 80%;
+      word-wrap: break-word;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .message.bot .message-bubble {
+      background: #e0f2f1;
+      color: #333;
+    }
+
+    .message.user .message-bubble {
+      background: teal;
+      color: white;
+    }
+
+    .chatbot-input {
+      display: flex;
+      gap: 8px;
+      padding: 12px;
+      border-top: 1px solid #e0e0e0;
+      background: white;
+    }
+
+    .chatbot-input input {
+      flex: 1;
+      margin: 0;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .chatbot-input button {
+      width: auto;
+      margin: 0;
+      padding: 8px 12px;
+      background: teal;
+    }
+
+    .mic-button {
+      background: #ff6b6b !important;
+      width: auto !important;
+      padding: 8px 12px !important;
+      margin: 0 !important;
+    }
+
+    .mic-button.listening {
+      background: #4CAF50 !important;
+      animation: pulse 0.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .location-chip {
+      display: inline-block;
+      background: #e0f2f1;
+      padding: 6px 10px;
+      border-radius: 20px;
+      margin: 4px 4px 4px 0;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .location-chip:hover {
+      background: #b2dfdb;
+    }
+
+    .driver-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 12px;
+    }
+
+    .driver-card .rating {
+      color: #ff9800;
+      font-weight: bold;
+    }
+
+    .previous-rides {
+      background: #fff3e0;
+      padding: 8px;
+      border-radius: 5px;
+      margin: 8px 0;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .previous-rides:hover {
+      background: #ffe0b2;
+    }
+
+    /* HELP MODAL STYLES */
+    .help-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      overflow: auto;
+    }
+
+    .help-modal.active {
+      display: block;
+    }
+
+    .help-modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 0;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .help-modal-header {
+      background: teal;
+      color: white;
+      padding: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .help-modal-close {
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 3px;
+    }
+
+    .help-modal-close:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .help-modal-body {
+      padding: 20px;
+    }
+
+    .help-section {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .help-section:last-child {
+      border-bottom: none;
+    }
+
+    .help-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: teal;
+      margin-bottom: 10px;
+    }
+
+    .help-command {
+      background: #f5f5f5;
+      padding: 8px 12px;
+      border-left: 3px solid teal;
+      margin-bottom: 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .help-command-text {
+      color: #333;
+      margin-bottom: 3px;
+    }
+
+    .help-command-desc {
+      color: #666;
+      font-size: 11px;
+      font-style: italic;
+    }
+
+    .help-tip {
+      background: #fff3cd;
+      padding: 10px;
+      border-radius: 5px;
+      border-left: 3px solid #ff9800;
+      font-size: 12px;
+      color: #856404;
+      margin-top: 15px;
+    }
   </style>
 </head>
 
@@ -47,67 +335,1209 @@
   <input id="to" list="locations" placeholder="Drop (e.g. New Town)">
   <input id="date" type="date">
 
-  <button onclick="searchRide()">Search Ride</button>
-  <button onclick="bookRide()">Book Ride</button>
+  <button id="searchBtn" onclick="searchRide()">Search Ride</button>
+  <button id="bookBtn" onclick="bookRide()">Book Ride</button>
 
   <div id="result" class="result">Waiting...</div>
+</div>
+
+<!-- CHATBOT ICON -->
+<div class="chatbot-icon" onclick="toggleChat()">💬</div>
+
+<!-- CHATBOT WINDOW -->
+<div class="chatbot-window" id="chatbotWindow">
+  <div class="chatbot-header">
+    <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+      <span>🤖 CarPool Assistant</span>
+      <select id="languageSelector" onchange="changeLanguage(this.value)" style="padding: 5px 8px; border-radius: 3px; border: 1px solid #fff; background: rgba(255,255,255,0.2); color: white; font-size: 12px;">
+        <option value="en" style="color: black;">English</option>
+        <option value="bn" style="color: black;">Bengali</option>
+        <option value="hi" style="color: black;">Hindi</option>
+        <option value="pa" style="color: black;">Punjabi</option>
+        <option value="ml" style="color: black;">Malayalam</option>
+      </select>
+    </div>
+    <div style="display: flex; gap: 5px;">
+      <button onclick="openHelpModal()" title="Show Commands">❓</button>
+      <button onclick="toggleChat()">✕</button>
+    </div>
+  </div>
+  <div class="chatbot-messages" id="chatMessages"></div>
+  <div class="chatbot-input">
+    <input type="text" id="chatInput" placeholder="Type or use microphone..." onkeypress="handleChatKeypress(event)">
+    <button class="mic-button" id="micBtn" onclick="startListening()">🎤</button>
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<!-- HELP MODAL -->
+<div class="help-modal" id="helpModal">
+  <div class="help-modal-content">
+    <div class="help-modal-header">
+      📖 Voice Command Guide
+      <button class="help-modal-close" onclick="closeHelpModal()">✕</button>
+    </div>
+    <div class="help-modal-body">
+      <!-- Content will be dynamically generated based on language -->
+    </div>
+  </div>
 </div>
 
 <datalist id="locations"></datalist>
 
 <script>
-const locations = [
-  "Howrah",
-  "Kolkata",
-  "Salt Lake",
-  "New Town",
-  "Park Street",
-  "Dumdum",
-  "Garia",
-  "Sealdah"
-];
+  // ============ LANGUAGE MANAGEMENT ============
+  let currentLanguage = 'en';
+  let allLocations = ["Howrah", "Kolkata", "Salt Lake", "New Town"];
+  
+  // Location names in multiple languages for better matching
+  const locationVariants = {
+    "Howrah": ["Howrah", "हावड़ा", "হাওড়া", "ਬਾਓੜਾ", "ഹാവൌ", "howrah"],
+    "Kolkata": ["Kolkata", "कोलकाता", "কলকাতা", "ਕੋਲਕਾਤਾ", "കോലുനാ", "kolkata"],
+    "Salt Lake": ["Salt Lake", "सल्ट लेक", "সল্ট লেক", "ਸੋਲਟ ਲੇਕ", "സോൾട് ലേക്", "salt lake"],
+    "New Town": ["New Town", "नई दिल्ली", "নিউ টাউন", "ਨਿਊ ਟਾਊਨ", "നിയു ടൗൺ", "new town"]
+  };
+  
+  let previousRides = [];
+  let currentBooking = {
+    pickup: null,
+    dropoff: null,
+    date: null,
+    timing: null,
+    driver: null,
+    step: null
+  };
 
-const datalist = document.getElementById("locations");
+  const translations = {
+    en: {
+      hello: "👋 Hello! How can I help you today? 💡 Try saying:\n• \"Book ride from Howrah to New Town\"\n• \"Show previous rides\"\n• \"Add new location\"\n• \"Show drivers in [area]\"",
+      bookingFrom: "Booking ride from",
+      bookingTo: "to",
+      askDate: "📅 When do you want to book this ride?\n\nSay: today, tomorrow, or a specific date (e.g., April 5)",
+      dateSet: "📅 Date set to:",
+      askTime: "⏰ What time would you prefer?\n\nSay: now, morning, afternoon, evening, or a specific time (e.g., 3 PM)",
+      timeSet: "⏰ Time set to:",
+      confirmed: "✅ Booking Confirmed!",
+      from: "📍 From:",
+      to: "📍 To:",
+      date: "📅 Date:",
+      time: "⏰ Time:",
+      proceedPayment: "💳 Proceeding to payment...",
+      error_same_location: "❌ Pickup and dropoff can't be the same. Please specify different locations.",
+      error_no_locations: "❌ I need both pickup and dropoff locations. Example: \"Book ride from",
+      error_date: "❌ I didn't understand the date. Please say: today, tomorrow, or a specific date (April 5)",
+      error_time: "❌ I didn't understand the time. Please say: morning, afternoon, evening, or a specific time (3 PM)",
+      error_understand: "I didn't understand that command. Please try:\n• Book ride\n• Show drivers\n• Previous rides\n• Add location",
+      noDrivers: "No drivers available in",
+      topDrivers: "⭐ Top Drivers in",
+      prevRides: "You haven't booked any rides yet. Say 'book ride' to get started!",
+      prevRidesTitle: "📋 Your Previous Rides:",
+      rebook: "Say 'rebook' to book the last ride again!",
+      noPrevRides: "No previous rides to rebook. Start a new booking!",
+      couldNotUnderstand: "Sorry, I couldn't understand. Please try again!",
+      availLocations: "Valid locations:",
+      locationAdded: "Added to locations database! Now you can say: Book ride from",
+      addLocationExample: "Please tell me the new location name. Example: 'Add location Bangalore'",
+      help_title: "📖 Voice Command Guide",
+      help_book: "🚗 BOOK A RIDE",
+      help_book_cmd: "Say: \"Book ride from [location] to [location]\"",
+      help_book_desc: "Examples: \"Book from Howrah to New Town\", \"Ride from Kolkata to Salt Lake\"",
+      help_date: "Then say DATE: \"Today\", \"Tomorrow\", or \"April 5\"",
+      help_date_desc: "The bot will ask when you want to book",
+      help_time: "Then say TIME: \"Morning\", \"Afternoon\", \"Evening\", or \"Now\"",
+      help_time_desc: "Choose your preferred time slot",
+      help_drivers: "👥 SHOW DRIVERS",
+      help_drivers_cmd: "Say: \"Show drivers in [location]\"",
+      help_drivers_desc: "Examples: \"Show drivers in Howrah\", \"Drivers in New Town\"",
+      help_drivers_info: "Driver names, ratings, and phone numbers",
+      help_drivers_info_desc: "Filter by area to find available drivers",
+      help_prev: "📋 PREVIOUS RIDES",
+      help_prev_cmd: "Say: \"Show previous rides\" or \"History\"",
+      help_prev_desc: "View your last 5 booked rides",
+      help_rebook_cmd: "Say: \"Rebook\" or \"Book again\"",
+      help_rebook_desc: "Quickly rebook your last ride with same pickup & dropoff",
+      help_addloc: "📍 ADD NEW LOCATION",
+      help_addloc_cmd: "Say: \"Add location [city name]\"",
+      help_addloc_desc: "Examples: \"Add location Bangalore\", \"Add Mumbai\"",
+      help_addloc_save: "New location will be saved to database",
+      help_addloc_save_desc: "Use it for future bookings immediately",
+      help_locations: "📌 SUPPORTED LOCATIONS",
+      help_locations_list: "• Howrah • Kolkata • Salt Lake • New Town",
+      help_locations_desc: "Use these locations in booking commands. Add more with \"Add location\"",
+      help_tips: "💡 Pro Tips:",
+      help_tips_mic: "• Use the 🎤 button to speak commands (60-second recording)",
+      help_tips_lang: "• Select language from dropdown before speaking",
+      help_tips_clear: "• Say commands clearly for better recognition",
+      help_tips_text: "• Type text manually if microphone has issues",
+      selectDriver: "Which driver would you like to select?",
+      driverNum: "Driver",
+      saySelect: "Say: \"Select driver 1\" or \"Choose driver 2\" or \"Book with driver 3\"",
+      driverSelected: "Driver Selected:",
+      rating: "Rating:",
+      phone: "Phone:"
+    },
+    bn: {
+      hello: "👋 নমস্কার! আমি আপনাকে কীভাবে সাহায্য করতে পারি? 💡 চেষ্টা করুন:\n• \"হাওড়া থেকে নিউ টাউনে রাইড বুক করুন\"\n• \"আগের রাইডগুলি দেখান\"\n• \"নতুন অবস্থান যোগ করুন\"\n• \"[এলাকায়] চালক দেখান\"",
+      bookingFrom: "রাইড বুকিং করছি",
+      bookingTo: "থেকে",
+      askDate: "📅 আপনি এই রাইডটি কখন বুক করতে চান?\n\nবলুন: আজ, আগামীকাল, বা একটি নির্দিষ্ট তারিখ (যেমন এপ্রিল ৫)",
+      dateSet: "📅 তারিখ নির্ধারিত হয়েছে:",
+      askTime: "⏰ আপনি কোন সময় পছন্দ করেন?\n\nবলুন: এখন, সকাল, দুপুর, সন্ধ্যা, বা নির্দিষ্ট সময় (যেমন ৩ টা)",
+      timeSet: "⏰ সময় নির্ধারিত হয়েছে:",
+      confirmed: "✅ বুকিং নিশ্চিত করা হয়েছে!",
+      from: "📍 থেকে:",
+      to: "📍 কোথায়:",
+      date: "📅 তারিখ:",
+      time: "⏰ সময়:",
+      proceedPayment: "💳 পেমেন্টে এগিয়ে যাচ্ছি...",
+      error_same_location: "❌ পিকআপ এবং ড্রপঅফ একই হতে পারে না। অনুগ্রহ করে বিভিন্ন অবস্থান নির্দিষ্ট করুন।",
+      error_no_locations: "❌ আমার পিকআপ এবং ড্রপঅফ উভয় অবস্থান প্রয়োজন। উদাহরণ: এ থেকে রাইড বুক করুন",
+      error_date: "❌ আমি তারিখটি বুঝতে পারিনি। অনুগ্রহ করে বলুন: আজ, আগামীকাল, বা একটি নির্দিষ্ট তারিখ",
+      error_time: "❌ আমি সময়টি বুঝতে পারিনি। অনুগ্রহ করে বলুন: সকাল, দুপুর, সন্ধ্যা, বা নির্দিষ্ট সময়",
+      error_understand: "আমি সেই কমান্ডটি বুঝতে পারিনি। চেষ্টা করুন:\n• রাইড বুক করুন\n• চালক দেখান\n• আগের রাইড\n• অবস্থান যোগ করুন",
+      noDrivers: "এর মধ্যে কোনো চালক পাওয়া যায় না",
+      topDrivers: "⭐ সেরা চালকরা",
+      prevRides: "আপনি এখনও কোনো রাইড বুক করেননি। শুরু করতে বলুন 'রাইড বুক করুন'!",
+      prevRidesTitle: "📋 আপনার আগের রাইড:",
+      rebook: "আগের রাইড আবার বুক করতে বলুন 'পুনরায় বুক করুন'!",
+      noPrevRides: "পুনরায় বুক করার জন্য কোনো আগের রাইড নেই। নতুন বুকিং শুরু করুন!",
+      couldNotUnderstand: "দুঃখিত, আমি বুঝতে পারিনি। আবার চেষ্টা করুন!",
+      availLocations: "বৈধ অবস্থান:",
+      locationAdded: "অবস্থান ডাটাবেসে যোগ করা হয়েছে! এখন আপনি বলতে পারেন: এ থেকে রাইড বুক করুন",
+      addLocationExample: "দয়া করে নতুন অবস্থানের নাম বলুন। উদাহরণ: 'বাংলাদেশ যোগ করুন'",
+      help_title: "📖 ভয়েস কমান্ড গাইড",
+      help_book: "🚗 একটি রাইড বুক করুন",
+      help_book_cmd: "বলুন: \"[অবস্থান] থেকে [অবস্থান]ে রাইড বুক করুন\"",
+      help_book_desc: "উদাহরণ: \"হাওড়া থেকে নিউ টাউনে রাইড বুক করুন\", \"কলকাতা থেকে সল্ট লেকে রাইড\"",
+      help_date: "তারপর তারিখ বলুন: \"আজ\", \"আগামীকাল\", বা \"এপ্রিল ৫\"",
+      help_date_desc: "বট আপনাকে কখন বুক করতে চান তা জিজ্ঞাসা করবে",
+      help_time: "তারপর সময় বলুন: \"সকাল\", \"দুপুর\", \"সন্ধ্যা\", বা \"এখন\"",
+      help_time_desc: "আপনার পছন্দের সময় স্লট বেছে নিন",
+      help_drivers: "👥 চালক দেখান",
+      help_drivers_cmd: "বলুন: \"[অবস্থান]ে চালক দেখান\"",
+      help_drivers_desc: "উদাহরণ: \"হাওড়ায় চালক দেখান\", \"নিউ টাউনে চালক\"",
+      help_drivers_info: "চালকের নাম, রেটিং এবং ফোন নম্বর",
+      help_drivers_info_desc: "এলাকা অনুযায়ী উপলব্ধ চালক খুঁজুন",
+      help_prev: "📋 আগের রাইড",
+      help_prev_cmd: "বলুন: \"আগের রাইড দেখান\" বা \"ইতিহাস\"",
+      help_prev_desc: "আপনার শেষ ৫টি বুকিং করা রাইড দেখুন",
+      help_rebook_cmd: "বলুন: \"পুনরায় বুক করুন\" বা \"আবার বুক করুন\"",
+      help_rebook_desc: "শেষ রাইড দ্রুত আবার বুক করুন একই পিকআপ এবং ড্রপঅফ সহ",
+      help_addloc: "📍 নতুন অবস্থান যোগ করুন",
+      help_addloc_cmd: "বলুন: \"[শহরের নাম] অবস্থান যোগ করুন\"",
+      help_addloc_desc: "উদাহরণ: \"বাংলাদেশ যোগ করুন\", \"মুম্বাই যোগ করুন\"",
+      help_addloc_save: "নতুন অবস্থান ডাটাবেসে সংরক্ষিত হবে",
+      help_addloc_save_desc: "ভবিষ্যতের বুকিংয়ের জন্য অবিলম্বে ব্যবহার করুন",
+      help_locations: "📌 সমর্থিত অবস্থান",
+      help_locations_list: "• হাওড়া • কলকাতা • সল্ট লেক • নিউ টাউন",
+      help_locations_desc: "বুকিং কমান্ডে এই অবস্থানগুলি ব্যবহার করুন। \"অবস্থান যোগ করুন\" দিয়ে আরও যোগ করুন",
+      help_tips: "💡 প্রো টিপস:",
+      help_tips_mic: "• 🎤 বোতাম ব্যবহার করে কমান্ড বলুন (৬০ সেকেন্ড রেকর্ডিং)",
+      help_tips_lang: "• কথা বলার আগে ড্রপডাউন থেকে ভাষা নির্বাচন করুন",
+      help_tips_clear: "• ভাল স্বীকৃতির জন্য স্পষ্টভাবে কমান্ড বলুন",
+      help_tips_text: "• মাইক্রোফোন সমস্যা হলে ম্যানুয়ালি টেক্সট টাইপ করুন",
+      selectDriver: "কোন চালক নির্বাচন করবেন?",
+      driverNum: "চালক",
+      saySelect: "বলুন: \"চালক ১ নির্বাচন করুন\" বা \"চালক ২ বেছে নিন\" বা \"চালক ৩ এর সাথে বুক করুন\"",
+      driverSelected: "চালক নির্বাচিত:",
+      rating: "রেটিং:",
+      phone: "ফোন:"
+    },
+    hi: {
+      hello: "👋 नमस्ते! मैं आपको कैसे मदद कर सकता हूं? 💡 कोशिश करें:\n• \"हावड़ा से नई दिल्ली तक राइड बुक करें\"\n• \"पिछली राइड दिखाएँ\"\n• \"नया स्थान जोड़ें\"\n• \"[क्षेत्र में] ड्राइवर दिखाएँ\"",
+      bookingFrom: "राइड की बुकिंग की जा रही है",
+      bookingTo: "से",
+      askDate: "📅 आप इस राइड को कब बुक करना चाहते हैं?\n\nकहें: आज, कल, या एक विशिष्ट तारीख (जैसे अप्रैल 5)",
+      dateSet: "📅 तारीख सेट की गई:",
+      askTime: "⏰ आप कौन सा समय पसंद करेंगे?\n\nकहें: अभी, सुबह, दोपहर, शाम, या विशिष्ट समय (जैसे 3 बजे)",
+      timeSet: "⏰ समय सेट किया गया:",
+      confirmed: "✅ बुकिंग की पुष्टि की गई!",
+      from: "📍 से:",
+      to: "📍 को:",
+      date: "📅 तारीख:",
+      time: "⏰ समय:",
+      proceedPayment: "💳 भुगतान के लिए आगे बढ़ रहे हैं...",
+      error_same_location: "❌ पिकअप और ड्रॉपऑफ समान नहीं हो सकते। कृपया अलग-अलग स्थान निर्दिष्ट करें।",
+      error_no_locations: "❌ मुझे पिकअप और ड्रॉपऑफ दोनों स्थान चाहिए। उदाहरण: से राइड बुक करें",
+      error_date: "❌ मैं तारीख नहीं समझ सका। कृपया कहें: आज, कल, या एक विशिष्ट तारीख",
+      error_time: "❌ मैं समय नहीं समझ सका। कृपया कहें: सुबह, दोपहर, शाम, या विशिष्ट समय",
+      error_understand: "मैं उस कमांड को नहीं समझ सका। कोशिश करें:\n• राइड बुक करें\n• ड्राइवर दिखाएँ\n• पिछली राइड\n• स्थान जोड़ें",
+      noDrivers: "इसमें कोई ड्राइवर उपलब्ध नहीं है",
+      topDrivers: "⭐ शीर्ष ड्राइवर",
+      prevRides: "आपने अभी तक कोई राइड बुक नहीं की है। 'राइड बुक करें' कहकर शुरू करें!",
+      prevRidesTitle: "📋 आपकी पिछली राइड:",
+      rebook: "पिछली राइड को फिर से बुक करने के लिए 'फिर से बुक करें' कहें!",
+      noPrevRides: "पुनः बुकिंग के लिए कोई पिछली राइड नहीं। नई बुकिंग शुरू करें!",
+      couldNotUnderstand: "माफ कीजिए, मैं नहीं समझ सका। फिर से कोशिश करें!",
+      availLocations: "वैध स्थान:",
+      locationAdded: "स्थान डेटाबेस में जोड़ा गया! अब आप कह सकते हैं: से राइड बुक करें",
+      addLocationExample: "कृपया नया स्थान का नाम बताएं। उदाहरण: 'बेंगलुरु जोड़ें'",
+      help_title: "📖 वॉइस कमांड गाइड",
+      help_book: "🚗 राइड बुक करें",
+      help_book_cmd: "कहें: \"[स्थान] से [स्थान] राइड बुक करें\"",
+      help_book_desc: "उदाहरण: \"हावड़ा से नई दिल्ली राइड बुक करें\", \"कोलकाता से साल्ट लेक राइड\"",
+      help_date: "फिर तारीख बताएं: \"आज\", \"कल\", या \"अप्रैल 5\"",
+      help_date_desc: "बॉट आपसे पूछेगा कि आप कब बुक करना चाहते हैं",
+      help_time: "फिर समय कहें: \"सुबह\", \"दोपहर\", \"शाम\", या \"अभी\"",
+      help_time_desc: "अपना पसंदीदा समय स्लॉट चुनें",
+      help_drivers: "👥 ड्राइवर दिखाएं",
+      help_drivers_cmd: "कहें: \"[स्थान] में ड्राइवर दिखाएं\"",
+      help_drivers_desc: "उदाहरण: \"हावड़ा में ड्राइवर दिखाएं\", \"नई दिल्ली में ड्राइवर\"",
+      help_drivers_info: "ड्राइवर का नाम, रेटिंग और फोन नंबर",
+      help_drivers_info_desc: "क्षेत्र के अनुसार उपलब्ध ड्राइवर खोजें",
+      help_prev: "📋 पिछली राइड",
+      help_prev_cmd: "कहें: \"पिछली राइड दिखाएं\" या \"इतिहास\"",
+      help_prev_desc: "अपनी आखिरी 5 बुक की गई राइड देखें",
+      help_rebook_cmd: "कहें: \"फिर से बुक करें\" या \"दोबारा बुक करें\"",
+      help_rebook_desc: "अपनी आखिरी राइड को समान पिकअप और ड्रॉपऑफ के साथ जल्दी फिर से बुक करें",
+      help_addloc: "📍 नया स्थान जोड़ें",
+      help_addloc_cmd: "कहें: \"[शहर का नाम] स्थान जोड़ें\"",
+      help_addloc_desc: "उदाहरण: \"बेंगलुरु जोड़ें\", \"मुंबई जोड़ें\"",
+      help_addloc_save: "नया स्थान डेटाबेस में सहेजा जाएगा",
+      help_addloc_save_desc: "भविष्य की बुकिंग के लिए तुरंत उपयोग करें",
+      help_locations: "📌 समर्थित स्थान",
+      help_locations_list: "• हावड़ा • कोलकाता • साल्ट लेक • नई दिल्ली",
+      help_locations_desc: "बुकिंग कमांड में ये स्थान उपयोग करें। \"स्थान जोड़ें\" के साथ अधिक जोड़ें",
+      help_tips: "💡 प्रो टिप्स:",
+      help_tips_mic: "• कमांड बोलने के लिए 🎤 बटन का उपयोग करें (60 सेकंड रिकॉर्डिंग)",
+      help_tips_lang: "• बोलने से पहले ड्रॉपडाउन से भाषा चुनें",
+      help_tips_clear: "• बेहतर पहचान के लिए कमांड स्पष्ट रूप से बोलें",
+      help_tips_text: "• माइक्रोफोन समस्याओं के लिए मैन्युअल रूप से टेक्सट टाइप करें",
+      selectDriver: "कौन सा ड्राइवर चुनेंगे?",
+      driverNum: "ड्राइवर",
+      saySelect: "कहें: \"ड्राइवर 1 चुनें\" या \"ड्राइवर 2 के साथ बुक करें\" या \"ड्राइवर 3 चुनें\"",
+      driverSelected: "ड्राइवर चुना गया:",
+      rating: "रेटिंग:",
+      phone: "फोन:"
+    },
+    pa: {
+      hello: "👋 ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈ ਤੁਹਾਨੂੰ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ? 💡 ਕੋਸ਼ਿਸ਼ ਕਰੋ:\n• \"ਹਾਓੜਾ ਤੋਂ ਨਿਊ ਟਾਊਨ ਤੀਕ ਰਾਈਡ ਬੁੱਕ ਕਰੋ\"\n• \"ਪਿਛਲੀ ਰਾਈਡ ਦਿਖਾਓ\"\n• \"ਨਵਾਂ ਸਥਾਨ ਜੋੜ ਦਿਓ\"\n• \"[ਖੇਤਰ ਵਿੱਚ] ਡ੍ਰਾਈਵਰ ਦਿਖਾਓ\"",
+      bookingFrom: "ਰਾਈਡ ਬੁਕ ਕਰ ਰਹੇ ਹੋ",
+      bookingTo: "ਤੋਂ",
+      askDate: "📅 ਤੁਸੀਂ ਇਸ ਰਾਈਡ ਨੂੰ ਕਦੋਂ ਬੁੱਕ ਕਰਨਾ ਚਾਹਦੇ ਹੋ?\n\nਕਹੋ: ਅੱਜ, ਕੱਲ, ਜਾਂ ਇੱਕ ਖਾਸ ਤਾਰੀਖ (ਜਿਵੇਂ ਅਪ੍ਰੈਲ 5)",
+      dateSet: "📅 ਤਾਰੀਖ ਤੈਅ ਕਰ ਦਿੱਤੀ ਗਈ:",
+      askTime: "⏰ ਤੁਸੀਂ ਕਿਹੜਾ ਸਮਾਂ ਪਸੰਦ ਕਰੋਗੇ?\n\nਕਹੋ: ਹੁਣ, ਸਵੇਰ, ਦੁਪਹਿਰ, ਸ਼ਾਮ, ਜਾਂ ਖਾਸ ਸਮਾਂ (ਜਿਵੇਂ 3 ਵਜੇ)",
+      timeSet: "⏰ ਸਮਾਂ ਤੈਅ ਕਰ ਦਿੱਤਾ ਗਿਆ:",
+      confirmed: "✅ ਬੁਕਿੰਗ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ!",
+      from: "📍 ਤੋਂ:",
+      to: "📍 ਨੂੰ:",
+      date: "📅 ਤਾਰੀਖ:",
+      time: "⏰ ਸਮਾਂ:",
+      proceedPayment: "💳 ਭੁਗਤਾਨ ਵੱਲ ਅਗਲੇ ਪੜਾਅ ਤੇ ਜਾ ਰਹੇ ਹੋ...",
+      error_same_location: "❌ ਪਿਕਅਪ ਅਤੇ ਡ੍ਰਾਪ ਆਫ ਇਕੋ ਜਿਹੇ ਨਹੀਂ ਹੋ ਸਕਦੇ। ਕਿਰਪਾ ਕਰਕੇ ਵਿਭਿੰਨ ਸਥਾਨ ਨਿਰਧਾਰਤ ਕਰੋ।",
+      error_no_locations: "❌ ਮੌਖਿਕ ਪਿਕਅਪ ਅਤੇ ਡ੍ਰਾਪ ਆਫ ਦੋਵੇਂ ਸਥਾਨ ਚਾਹੀਦੇ ਹਨ। ਉਦਾਹਰਣ: ਤੋਂ ਰਾਈਡ ਬੁੱਕ ਕਰੋ",
+      error_date: "❌ ਮੈਂ ਤਾਰੀਖ ਨੂੰ ਸਮਝ ਨਹੀਂ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਕਹੋ: ਅੱਜ, ਕੱਲ, ਜਾਂ ਇੱਕ ਖਾਸ ਤਾਰੀਖ",
+      error_time: "❌ ਮੈਂ ਸਮਾਂ ਨੂੰ ਸਮਝ ਨਹੀਂ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਕਹੋ: ਸਵੇਰ, ਦੁਪਹਿਰ, ਸ਼ਾਮ, ਜਾਂ ਖਾਸ ਸਮਾਂ",
+      error_understand: "ਮੈ ਉਸ ਕਮਾਂਡ ਨੂੰ ਸਮਝ ਨਹੀਂ ਸਕਿਆ। ਕੋਸ਼ਿਸ਼ ਕਰੋ:\n• ਰਾਈਡ ਬੁੱਕ ਕਰੋ\n• ਡ੍ਰਾਈਵਰ ਦਿਖਾਓ\n• ਪਿਛਲੀ ਰਾਈਡ\n• ਸਥਾਨ ਜੋੜ ਦਿਓ",
+      noDrivers: "ਇਸ ਵਿੱਚ ਕੋਈ ਡ੍ਰਾਈਵਰ ਉਪਲਬਧ ਨਹੀਂ ਹੈ",
+      topDrivers: "⭐ ਸ਼ਾਨਦਾਰ ਡ੍ਰਾਈਵਰ",
+      prevRides: "ਤੁਸੀਂ ਹਾਲੇ ਕੋਈ ਰਾਈਡ ਬੁੱਕ ਨਹੀਂ ਕੀਤੀ ਹੈ। ਸ਼ੁਰੂ ਕਰਨ ਲਈ 'ਰਾਈਡ ਬੁੱਕ ਕਰੋ' ਕਹੋ!",
+      prevRidesTitle: "📋 ਤੁਹਾਡੀ ਪਿਛਲੀ ਰਾਈਡ:",
+      rebook: "ਪਿਛਲੀ ਰਾਈਡ ਨੂੰ ਮੁੜ ਬੁੱਕ ਕਰਨ ਲਈ 'ਮੁੜ ਬੁੱਕ ਕਰੋ' ਕਹੋ!",
+      noPrevRides: "ਮੁੜ ਬੁਕਿੰਗ ਲਈ ਕੋਈ ਪਿਛਲੀ ਰਾਈਡ ਨਹੀਂ ਹੈ। ਨਵੀਂ ਬੁਕਿੰਗ ਸ਼ੁਰੂ ਕਰੋ!",
+      couldNotUnderstand: "ਮਾਫ ਕੀਜਿਓ, ਮੈ ਨੂੰ ਸਮਝ ਨਹੀਂ ਆਇਆ। ਦੋਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ!",
+      availLocations: "ਵੈਧ ਸਥਾਨ:",
+      locationAdded: "ਸਥਾਨ ਡਾਟਾਬੇਸ ਵਿੱਚ ਜੋੜਿਆ ਗਿਆ! ਹੁਣ ਤੁਸੀਂ ਕਹ ਸਕਦੇ ਹੋ: ਤੋਂ ਰਾਈਡ ਬੁੱਕ ਕਰੋ",
+      addLocationExample: "ਕਿਰਪਾ ਕਰਕੇ ਨਵੀਂ ਸਥਾਨ ਦਾ ਨਾਮ ਦੱਸੋ। ਉਦਾਹਰਣ: ਬੈਂਗਲੋਰ ਜੋੜ ਦਿਓ",
+      help_title: "📖 ਵੌਇਸ ਕਮਾਂਡ ਗਾਈਡ",
+      help_book: "🚗 ਰਾਈਡ ਬੁੱਕ ਕਰੋ",
+      help_book_cmd: "ਕਹੋ: \"[ਸਥਾਨ] ਤੋਂ [ਸਥਾਨ] ਰਾਈਡ ਬੁੱਕ ਕਰੋ\"",
+      help_book_desc: "ਉਦਾਹਰਣ: \"ਬਾਓੜਾ ਤੋਂ ਨਿਊ ਟਾਊਨ ਰਾਈਡ ਬੁੱਕ ਕਰੋ\", \"ਕੋਲਕਾਤਾ ਤੋਂ ਸੋਲਟ ਲੇਕ ਰਾਈਡ\"",
+      help_date: "ਫਿਰ ਤਾਰੀਖ ਕਹੋ: \"ਅੱਜ\", \"ਕੱਲ\", ਜਾਂ \"ਅਪ੍ਰੈਲ 5\"",
+      help_date_desc: "ਬੌਟ ਤੁਹਾਨੂੰ ਪੁੱਛੇਗਾ ਕਿ ਤੁਸੀਂ ਕਦੋਂ ਬੁੱਕ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ",
+      help_time: "ਫਿਰ ਸਮਾਂ ਕਹੋ: \"ਸਵੇਰ\", \"ਦੁਪਹਿਰ\", \"ਸ਼ਾਮ\", ਜਾਂ \"ਹੁਣ\"",
+      help_time_desc: "ਆਪਣਾ ਪਸੰਦ ਦਾ ਸਮਾਂ ਸਲਾਟ ਚੁਣੋ",
+      help_drivers: "👥 ਡ੍ਰਾਈਵਰ ਦਿਖਾਓ",
+      help_drivers_cmd: "ਕਹੋ: \"[ਸਥਾਨ] ਵਿੱਚ ਡ੍ਰਾਈਵਰ ਦਿਖਾਓ\"",
+      help_drivers_desc: "ਉਦਾਹਰਣ: \"ਬਾਓੜਾ ਵਿੱਚ ਡ੍ਰਾਈਵਰ ਦਿਖਾਓ\", \"ਨਿਊ ਟਾਊਨ ਡ੍ਰਾਈਵਰ\"",
+      help_drivers_info: "ਡ੍ਰਾਈਵਰ ਦਾ ਨਾਮ, ਰੇਟਿੰਗ ਅਤੇ ਫੋਨ ਨੰਬਰ",
+      help_drivers_info_desc: "ਖੇਤਰ ਦੇ ਅਨੁਸਾਰ ਉਪਲਬਧ ਡ੍ਰਾਈਵਰ ਲੱਭੋ",
+      help_prev: "📋 ਪਿਛਲੀ ਰਾਈਡ",
+      help_prev_cmd: "ਕਹੋ: \"ਪਿਛਲੀ ਰਾਈਡ ਦਿਖਾਓ\" ਜਾਂ \"ਇਤਿਹਾਸ\"",
+      help_prev_desc: "ਆਪਣੀ ਆਖਰੀ 5 ਬੁੱਕ ਕੀਤੀਆਂ ਰਾਈਡ ਦੇਖੋ",
+      help_rebook_cmd: "ਕਹੋ: \"ਮੁੜ ਬੁੱਕ ਕਰੋ\" ਜਾਂ \"ਦੋਬਾਰਾ ਬੁੱਕ ਕਰੋ\"",
+      help_rebook_desc: "ਉਸੇ ਪਿਕਅਪ ਅਤੇ ਡ੍ਰਾਪ ਆਫ ਨਾਲ ਆਪਣੀ ਆਖਰੀ ਰਾਈਡ ਨੂੰ ਜਲਦੀ ਮੁੜ ਬੁੱਕ ਕਰੋ",
+      help_addloc: "📍 ਨਵਾਂ ਸਥਾਨ ਜੋੜ ਦਿਓ",
+      help_addloc_cmd: "ਕਹੋ: \"[ਸ਼ਹਿਰ ਦਾ ਨਾਮ] ਸਥਾਨ ਜੋੜ ਦਿਓ\"",
+      help_addloc_desc: "ਉਦਾਹਰਣ: \"ਬੈਂਗਲੋਰ ਜੋੜ ਦਿਓ\", \"ਮੁੰਬਈ ਜੋੜ ਦਿਓ\"",
+      help_addloc_save: "ਨਵਾਂ ਸਥਾਨ ਡਾਟਾਬੇਸ ਵਿਚ ਸੁਰੱਖਿਅਤ ਹੋਵੇਗਾ",
+      help_addloc_save_desc: "ਭਵਿਸ਼ਯ ਦੀ ਬੁਕਿੰਗ ਲਈ ਤੁਰੰਤ ਵਰਤੋ",
+      help_locations: "📌 ਸਮਰਥਤ ਸਥਾਨ",
+      help_locations_list: "• ਬਾਓੜਾ • ਕੋਲਕਾਤਾ • ਸੋਲਟ ਲੇਕ • ਨਿਊ ਟਾਊਨ",
+      help_locations_desc: "ਬੁਕਿੰਗ ਕਮਾਂਡ ਵਿੱਚ ਇਹ ਸਥਾਨ ਵਰਤੋ। \"ਸਥਾਨ ਜੋੜ ਦਿਓ\" ਨਾਲ ਹੋਰ ਜੋੜੋ",
+      help_tips: "💡 ਪ੍ਰੋ ਟਿਪਸ:",
+      help_tips_mic: "• ਕਮਾਂਡ ਬੋਲਣ ਲਈ 🎤 ਬਟਨ ਵਰਤੋ (60 ਸਕਿੰਟ ਰਿਕਾਰਡਿੰਗ)",
+      help_tips_lang: "• ਬੋਲਣ ਤੋਂ ਪਹਿਲਾਂ ਡ੍ਰੌਪ ਡਾଉਨ ਤੋਂ ਭਾਸ਼ਾ ਚੁਣੋ",
+      help_tips_clear: "• ਬਿਓਸ਼ ਪਛਾਣ ਲਈ ਸਪਸ਼ਟ ਰੂਪ ਵਿੱਚ ਕਮਾਂਡ ਬੋਲੋ",
+      help_tips_text: "• ਮਾਈਕ ਦੀ ਸਮੱਸਿਆ ਲਈ ਹੱਥੀਂ ਟੈਕਸਟ ਟਾਈਪ ਕਰੋ",
+      selectDriver: "ਤੁਸੀਂ ਕਿਹੜਾ ਡ੍ਰਾਈਵਰ ਚੁਣਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
+      driverNum: "ਡ੍ਰਾਈਵਰ",
+      saySelect: "ਕਹੋ: \"ਡ੍ਰਾਈਵਰ 1 ਚੁਣੋ\" ਜਾਂ \"ਡ੍ਰਾਈਵਰ 2 ਨਾਲ ਬੁੱਕ ਕਰੋ\" ਜਾਂ \"ਡ੍ਰਾਈਵਰ 3 ਚੁਣੋ\"",
+      driverSelected: "ਡ੍ਰਾਈਵਰ ਚੁਣਿਆ ਗਿਆ:",
+      rating: "ਰੇਟਿੰਗ:",
+      phone: "ਫੋਨ:"
+    },
+    ml: {
+      hello: "👋 നമസ്കാരം! ഞാൻ നിങ്ങളെ എങ്ങനെ സഹായ്യ കേണ്ടതുണ്ട്? 💡 നമുക്കു പ്രയത്നിക്കാം:\n• \"ഹാവൌ എന്നിടത്തുനിന്ന് നിയു ടൗൺ വരെ റൈഡ് ബുക്ക് ചെയ്യുക\"\n• \"മുൻ യാത്ര കാണിക്കുക\"\n• \"പുതിയ സ്ഥാനം ചേർക്കുക\"\n• \"[എലാകയിലെ] ഡ്രൈവർ കാണിക്കുക\"",
+      bookingFrom: "റൈഡ് ബുക്ക് ചെയ്യുന്നു",
+      bookingTo: "ഇത് വരെ",
+      askDate: "📅 നിങ്ങൾ ഈ റൈഡ് എപ്പോൾ ബുക്ക് ചെയ്യാൻ ആഗ്രഹിക്കുന്നു?\n\nപറയുക: ഇന്ന്, നാളെ, അല്ലെങ്കിൽ ഒരു നിർദ്ദിഷ്ട തീയതി (ഉദാ: ഏപ്രിൽ 5)",
+      dateSet: "📅 തീയതി നിശ്ചയിച്ചു:",
+      askTime: "⏰ നിങ്ങൾ ഏത് സമയം ഇഷ്ടപ്പെടുന്നു?\n\nപറയുക: ഇപ്പോൾ, രാവിലെ, ഉച്ച, സായാഹ്നം, അല്ലെങ്കിൽ ഒരു നിർദ്ദിഷ്ട സമയം (ഉദാ: 3 PM)",
+      timeSet: "⏰ സമയം നിശ്ചയിച്ചു:",
+      confirmed: "✅ ബുക്കിംഗ് സ്ഥിരീകരിച്ചു!",
+      from: "📍 എവിടെയിനിന്ന്:",
+      to: "📍 എവിടെയിലേക്ക്:",
+      date: "📅 തീയതി:",
+      time: "⏰ സമയം:",
+      proceedPayment: "💳 പേയ്‌മെന്റിലേക്ക് മുന്നോട്ട് പോകുന്നു...",
+      error_same_location: "❌ പിക്കആപ്പും ഡ്രോപ്പ്‌ഓഫും ഒരു പോലെ ആകാൻ കഴിയില്ല. ദയവായി വ്യത്യസ്ത സ്ഥാനങ്ങൾ വ്യക്തമാക്കുക.",
+      error_no_locations: "❌ എനിക്ക് പിക്കআപ്പ് ടെ ഡ്രോപ്പ്‌ഓഫ് രണ്ടും സ്ഥാനങ്ങൾ വേണ്ടതുണ്ട്. ഉദാ: വരെ റൈഡ് ബുക്ക് ചെയ്യുക",
+      error_date: "❌ എനിക്ക് തീയതി മനസിലായില്ല. ദയവായി പറയുക: ഇന്ന്, നാളെ, അല്ലെങ്കിൽ ഒരു നിർദ്ദിഷ്ട തീയതി",
+      error_time: "❌ എനിക്ക് സമയം മനസിലായില്ല. ദയവായി പറയുക: രാവിലെ, ഉച്ച, സായാഹ്നം, അല്ലെങ്കിൽ നിർദ്ദിഷ്ട സമയം",
+      error_understand: "ആ കമാൻഡ് എനിക്ക് മനസിലായില്ല. ഈ ശ്രമങ്ങൾ ചെയ്യുക:\n• റൈഡ് ബുക്ക് ചെയ്യുക\n• ഡ്രാ്വർ കാണിക്കുക\n• മുൻ റൈഡ്\n• സ്ഥാനം ചേർക്കുക",
+      noDrivers: "ഇതിൽ ഡ്രാ്വർ ലഭ്യമായില്ല",
+      topDrivers: "⭐ മികച്ച ഡ്രാ്വർമാർ",
+      prevRides: "നിങ്ങൾ ഇതുവരെ യാതൊരു റൈഡും ബുക്ക് ചെയ്യിട്ടില്ല. ആരംഭിക്കാൻ 'റൈഡ് ബുക്ക് ചെയ്യുക' പറയുക!",
+      prevRidesTitle: "📋 നിങ്ങളുടെ മുൻ റൈഡുകൾ:",
+      rebook: "മുൻ റൈഡ് വീണ്ടും ബുക്ക് ചെയ്യാൻ 'വീണ്ടും ബുക്ക് ചെയ്യുക' പറയുക!",
+      noPrevRides: "വീണ്ടും ബുക്ക് ചെയ്യാനുള്ള മുൻ റൈഡ് ഇല്ല. പുതിയ ബുക്കിംഗ് ആരംഭിക്കുക!",
+      couldNotUnderstand: "ക്ഷമിക്കുക, എനിക്ക് മനസിലായില്ല. വീണ്ടും ശ്രമിക്കുക!",
+      availLocations: "സാധുവായ സ്ഥാനങ്ങൾ:",
+      locationAdded: "സ്ഥാനം ഡാറ്റാബേസിലേക്ക് ചേർത്തു! ഇപ്പോൾ നിങ്ങൾ പറയാൻ കഴിയും: എന്നിടത്തുനിന്ന് റൈഡ് ബുക്ക് ചെയ്യുക",
+      addLocationExample: "ദയവായി പുതിയ സ്ഥാനത്തിന്റെ പേര് പറയുക. ഉദാ: 'ബെംഗളുരു ചേർക്കുക'",
+      help_title: "📖 വൊയ്സ് കമാൻഡ് ഗൈഡ്",
+      help_book: "🚗 റൈഡ് ബുക്ക് ചെയ്യുക",
+      help_book_cmd: "പറയുക: \"[സ്ഥാനം] ൽ നിന്ന് [സ്ഥാനം] വരെ റൈഡ് ബുക്ക് ചെയ്യുക\"",
+      help_book_desc: "ഉദാ: \"ഹാവൌ നിന്ന് നിയു ടൗൺ വരെ റൈഡ് ബുക്ക്\", \"കോച്ചി നിന്ന് കൊയിലാണ്ടി വരെ\"",
+      help_date: "പിന്നീട് തീയതി പറയുക: \"ഇന്ന്\", \"നാളെ\", അല്ലെങ്കിൽ \"ഏപ്രിൽ 5\"",
+      help_date_desc: "ബോട്ട് നിങ്ങളോട് ആരോപണം ചെയ്യാൻ ചോദിക്കും",
+      help_time: "പിന്നീട് സമയം പറയുക: \"രാവിലെ\", \"ഉച്ച\", \"സായാഹ്നം\", അല്ലെങ്കിൽ \"ഇപ്പോൾ\"",
+      help_time_desc: "നിങ്ങളുടെ ആദരണീയമായ സമയ സ്ലോട്ട് തിരഞ്ഞെടുക്കുക",
+      help_drivers: "👥 ഡ്രൈവർ കാണിക്കുക",
+      help_drivers_cmd: "പറയുക: \"[സ്ഥാനം]-ൽ ഡ്രൈവർ കാണിക്കുക\"",
+      help_drivers_desc: "ഉദാ: \"ഹാവൌ-ൽ ഡ്രൈവർ കാണിക്കുക\", \"നിയു ടൗണിലെ ഡ്രൈവർ\"",
+      help_drivers_info: "ഡ്രൈവറിന്റെ പേര്, റേറ്റിംഗ്, ഫോൺ നമ്പർ",
+      help_drivers_info_desc: "പ്രദേശ അനുസരിച്ച് ലഭ്യമായ ഡ്രൈവർ കണ്ടെത്തുക",
+      help_prev: "📋 മുൻ റൈഡ്",
+      help_prev_cmd: "പറയുക: \"മുൻ റൈഡ് കാണിക്കുക\" അല്ലെങ്കിൽ \"ചരിത്രം\"",
+      help_prev_desc: "നിങ്ങളുടെ കഴിഞ്ഞ 5 ബുക്ക് കൾ കാണുക",
+      help_rebook_cmd: "പറയുക: \"വീണ്ടും ബുക്ക് ചെയ്യുക\" അല്ലെങ്കിൽ \"വീണ്ടും ബുക്ക് ചെയ്യുക\"",
+      help_rebook_desc: "അതേ പിക്കആപ്പ്, ഡ്രാപ്പ് ഓഫ് ഉപയോഗിച്ച് കഴിഞ്ഞ റൈഡ് വീണ്ടും വേഗത്തിൽ ബുക്ക് ചെയ്യുക",
+      help_addloc: "📍 പുതിയ സ്ഥാനം ചേർക്കുക",
+      help_addloc_cmd: "പറയുക: \"[നഗരം] സ്ഥാനം ചേർക്കുക\"",
+      help_addloc_desc: "ഉദാ: \"ബെംഗളുരു ചേർക്കുക\", \"മുംബൈ ചേർക്കുക\"",
+      help_addloc_save: "പുതിയ സ്ഥാനം ഡാറ്റാബേസിൽ സംരക്ഷിക്കപ്പെടും",
+      help_addloc_save_desc: "ഭാവിയിലെ ബുക്കിംഗിനായി ഉടനെ ഉപയോഗിക്കുക",
+      help_locations: "📌 പിന്തുണയുള്ള സ്ഥാനങ്ങൾ",
+      help_locations_list: "• ഹാവൌ • കോലുനാ • സോൾട് ലേക് • നിയു ടൗൺ",
+      help_locations_desc: "ബുക്കിംഗ് കമാൻഡുകളിൽ ഈ സ്ഥാനങ്ങൾ ഉപയോഗിക്കുക. \"സ്ഥാനം ചേർക്കുക\" ഉപയോഗിച്ച് കൂടുതൽ ചേർക്കുക",
+      help_tips: "💡 പ്രോ കുറിപ്പുകൾ:",
+      help_tips_mic: "• കമാൻഡ് സംസാരിക്കുന്നതിന് 🎤 ബട്ടൺ ഉപയോഗിക്കുക (60 സെക്കൻഡ് റെക്കോർഡിംഗ്)",
+      help_tips_lang: "• സംസാരിക്കുന്നതിന് മുമ്പ് ഡ്രോപ് ഡൗൺ നിന്ന് ഭാഷ തിരഞ്ഞെടുക്കുക",
+      help_tips_clear: "• മികച്ച അംഗീകാരത്തിനായി കമാൻഡുകൾ വ്യക്തമായി പറയുക",
+      help_tips_text: "• മൈക്രോഫോൺ പ്രശ്നങ്ങൾക്ക് സ്വമേധയാ ടെക്സ്ട് ടൈപ്പ് ചെയ്യുക",
+      selectDriver: "നിങ്ങൾ ഏത് ഡ്രൈവർ തിരഞ്ഞെടുക്കാൻ ആഗ്രഹിക്കുന്നു?",
+      driverNum: "ഡ്രൈവർ",
+      saySelect: "പറയുക: \"ഡ്രൈവർ 1 തിരഞ്ഞെടുക്കുക\" അല്ലെങ്കിൽ \"ഡ്രൈവർ 2\" അല്ലെങ്കിൽ \"ഡ്രൈവർ 3 കൂടെ ബുക്ക് ചെയ്യുക\"",
+      driverSelected: "ഡ്രൈവർ തിരഞ്ഞെടുത്തു:",
+      rating: "റേറ്റിംഗ്:",
+      phone: "ഫോൻ:"
+    }
+  };
 
-locations.forEach(loc => {
-  const option = document.createElement("option");
-  option.value = loc;
-  datalist.appendChild(option);
-});
+  // Translation function
+  function t(key) {
+    return translations[currentLanguage][key] || translations['en'][key];
+  }
 
-// SEARCH
-function searchRide() {
-  const from = document.getElementById("from").value;
-  const to = document.getElementById("to").value;
+  function changeLanguage(lang) {
+    currentLanguage = lang;
+    
+    // Stop current listening if active
+    if (listeningTimeout) {
+      stopListening();
+    }
+    
+    // Update speech recognition language
+    const langMap = {
+      'en': 'en-US',
+      'bn': 'bn-IN',
+      'hi': 'hi-IN',
+      'pa': 'pa-IN',
+      'ml': 'ml-IN'
+    };
+    recognition.lang = langMap[lang] || 'en-US';
+    
+    // Clear chat and show welcome message in new language
+    document.getElementById("chatMessages").innerHTML = '';
+    addBotMessage(t('hello'));
+  }
 
-  document.getElementById("result").innerText =
-    `Searching rides from ${from} to ${to}...`;
+  let driverDatabase = {
+    "Howrah": [
+      { name: "Driver A", rating: 4.8, phone: "9876543210" },
+      { name: "Driver B", rating: 4.5, phone: "9876543211" },
+      { name: "Driver D", rating: 4.9, phone: "9876543214" }
+    ],
+    "Kolkata": [
+      { name: "Driver E", rating: 4.7, phone: "9876543215" },
+      { name: "Driver F", rating: 4.6, phone: "9876543216" }
+    ],
+    "Salt Lake": [
+      { name: "Driver G", rating: 4.85, phone: "9876543217" },
+      { name: "Driver H", rating: 4.4, phone: "9876543218" }
+    ],
+    "New Town": [
+      { name: "Driver I", rating: 4.92, phone: "9876543219" },
+      { name: "Driver J", rating: 4.3, phone: "9876543220" }
+    ]
+  };
 
-  showDrivers();
-}
+  // Initialize locations datalist
+  function initializeLocations() {
+    const datalist = document.getElementById("locations");
+    datalist.innerHTML = "";
+    allLocations.forEach(loc => {
+      const option = document.createElement("option");
+      option.value = loc;
+      datalist.appendChild(option);
+    });
+  }
 
-// BOOK
-function bookRide() {
-  const from = document.getElementById("from").value;
-  const to = document.getElementById("to").value;
+  // Add new location to database
+  function addLocation(location) {
+    const normalized = location.trim();
+    if (normalized && !allLocations.includes(normalized)) {
+      allLocations.push(normalized);
+      driverDatabase[normalized] = [
+        { name: "Local Driver", rating: 4.5, phone: "9999999999" }
+      ];
+      initializeLocations();
+      return true;
+    }
+    return false;
+  }
 
-  document.getElementById("result").innerText =
-    `✅ Ride booked from ${from} to ${to}`;
-}
+  // ============ CHATBOT INTERFACE ============
+  function toggleChat() {
+    document.getElementById("chatbotWindow").classList.toggle("active");
+    if (document.getElementById("chatbotWindow").classList.contains("active")) {
+      addBotMessage(t('hello'));
+    }
+  }
 
-// MOCK DRIVERS
-function showDrivers() {
-  const drivers = [
-    "Driver A ⭐4.8",
-    "Driver B ⭐4.5",
-    "Driver C ⭐4.7"
-  ];
+  function addBotMessage(text) {
+    const messageDiv = document.createElement("div");
+    messageDiv.className = "message bot";
+    messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
+    document.getElementById("chatMessages").appendChild(messageDiv);
+    document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
+  }
 
-  let html = "<b>Available Drivers:</b><br>";
-  drivers.forEach(d => html += d + "<br>");
+  function addUserMessage(text) {
+    const messageDiv = document.createElement("div");
+    messageDiv.className = "message user";
+    messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
+    document.getElementById("chatMessages").appendChild(messageDiv);
+    document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
+  }
 
-  document.getElementById("result").innerHTML = html;
-}
+  function handleChatKeypress(event) {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("chatInput");
+    const text = input.value.trim();
+    if (text) {
+      addUserMessage(text);
+      processVoiceCommand(text);
+      input.value = "";
+    }
+  }
+
+  // ============ SPEECH RECOGNITION ============
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.continuous = true;        // Keep listening for multiple phrases
+  recognition.interimResults = true;    // Get real-time results
+  recognition.maxAlternatives = 1;      // Get best match only
+  recognition.lang = "en-US";
+  
+  let listeningTimeout = null;
+  let listeningStartTime = null;
+  const LISTENING_DURATION = 60000;     // 60 seconds in milliseconds
+
+  function startListening() {
+    const micBtn = document.getElementById("micBtn");
+    micBtn.classList.add("listening");
+    micBtn.textContent = "🎤 Listening... (60s)";
+    
+    listeningStartTime = Date.now();
+    
+    // Start listening
+    recognition.start();
+    
+    // Auto-stop after 60 seconds
+    listeningTimeout = setTimeout(() => {
+      stopListening();
+    }, LISTENING_DURATION);
+    
+    // Update timer display
+    const timerInterval = setInterval(() => {
+      if (!micBtn.classList.contains("listening")) {
+        clearInterval(timerInterval);
+        return;
+      }
+      const elapsed = Math.floor((Date.now() - listeningStartTime) / 1000);
+      const remaining = 60 - elapsed;
+      micBtn.textContent = `🎤 Listening... (${remaining}s)`;
+    }, 1000);
+  }
+
+  function stopListening() {
+    const micBtn = document.getElementById("micBtn");
+    micBtn.classList.remove("listening");
+    micBtn.textContent = "🎤";
+    
+    if (listeningTimeout) {
+      clearTimeout(listeningTimeout);
+    }
+    
+    try {
+      recognition.stop();
+    } catch (e) {
+      // Already stopped
+    }
+  }
+
+  recognition.onstart = function() {
+    console.log("Speech recognition started");
+  };
+
+  recognition.onresult = function(event) {
+    let transcript = "";
+    let isFinal = false;
+    
+    // Collect all results
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      transcript += event.results[i][0].transcript;
+      isFinal = event.results[i].isFinal;
+    }
+    
+    // Only process final results
+    if (isFinal) {
+      const micBtn = document.getElementById("micBtn");
+      
+      // If user speaks, reset the timer
+      if (transcript.trim()) {
+        addUserMessage(transcript);
+        // DON'T use toLowerCase() for non-Latin scripts - pass raw text
+        processVoiceCommand(transcript);
+        
+        // Restart timer for next input
+        if (listeningTimeout) {
+          clearTimeout(listeningTimeout);
+        }
+        listeningStartTime = Date.now();
+        listeningTimeout = setTimeout(() => {
+          stopListening();
+        }, LISTENING_DURATION);
+      }
+    }
+  };
+
+  recognition.onerror = function(event) {
+    console.log("Speech recognition error:", event.error);
+    // Don't stop on errors, keep listening
+  };
+
+  recognition.onend = function() {
+    console.log("Speech recognition ended");
+    stopListening();
+  };
+
+  // ============ COMMAND PROCESSING ============
+  function processVoiceCommand(rawText) {
+    // Don't use toLowerCase() for non-Latin scripts
+    let text = rawText.trim();
+    let textLower = text.toLowerCase();
+
+    // If we're in the middle of booking, handle step-specific responses first
+    if (currentBooking.step === 'date') {
+      handleDateResponse(text);
+      return;
+    }
+    
+    if (currentBooking.step === 'timing') {
+      handleTimingResponse(text);
+      return;
+    }
+
+    if (currentBooking.step === 'driver') {
+      handleDriverSelection(text);
+      return;
+    }
+
+    // BOOK RIDE (multilingual keywords - case insensitive for Latin, direct match for scripts)
+    if (textLower.includes("book") || textLower.includes("ride") || 
+        textLower.includes("buuk") || text.includes("बुक") || 
+        text.includes("বুক") || text.includes("ਬੁੱਕ") ||
+        textLower.includes("buuck") || text.includes("बुक्क")) {
+      handleBookRideCommand(text);
+    }
+
+    // SHOW PREVIOUS RIDES (multilingual keywords)
+    else if (text.includes("previous") || text.includes("history") ||
+             text.includes("पिछल") || text.includes("पुरान") ||
+             text.includes("আগ") || text.includes("পুরান") ||
+             text.includes("ਪਿਛਲ") || text.includes("ਮੁ")) {
+      showPreviousRides();
+    }
+
+    // SHOW DRIVERS (multilingual keywords)
+    else if (textLower.includes("driver") || textLower.includes("available") ||
+             text.includes("ड्राइव") || text.includes("चालक") ||
+             text.includes("চালক") || text.includes("ڈرائیو") ||
+             text.includes("ਡ੍ਰਾਈਵਰ") || text.includes("ഡ്രൈവ")) {
+      handleDriverCommand(text);
+    }
+
+    // ADD NEW LOCATION (multilingual keywords)
+    else if (textLower.includes("add location") || textLower.includes("new location") ||
+             text.includes("जोड़") || text.includes("नया") ||
+             text.includes("যোগ") || text.includes("নতুন") ||
+             text.includes("ਜੋੜ") || text.includes("ਸਥਾਨ") ||
+             text.includes("ചേർ") || text.includes("പുതിയ")) {
+      handleAddLocation(text);
+    }
+
+    // REBOOK (multilingual keywords)
+    else if (textLower.includes("rebook") || textLower.includes("book again") ||
+             text.includes("फिर") || text.includes("दोबारा") ||
+             text.includes("আবার") || text.includes("পুনরায়") ||
+             text.includes("ਮੁੜ") || text.includes("ਦੋਬਾਰਾ") ||
+             text.includes("വീണ്ടും")) {
+      handleRebookCommand();
+    }
+
+    else {
+      addBotMessage(t('error_understand'));
+    }
+  }
+
+  // ============ BOOKING LOGIC ============
+  function handleBookRideCommand(text) {
+    let from = "", to = "";
+
+    // Extract pickup and drop with better matching - support all language variants
+    for (const [location, variants] of Object.entries(locationVariants)) {
+      for (const variant of variants) {
+        // Case-insensitive for Latin, direct match for scripts
+        if (text.toLowerCase().includes(variant.toLowerCase()) || text.includes(variant)) {
+          if (!from) {
+            from = location;
+          } else if (!to) {
+            to = location;
+          }
+        }
+      }
+    }
+
+    if (from && to) {
+      if (from !== to) {
+        bookRideWithVoice(from, to);
+      } else {
+        addBotMessage(t('error_same_location'));
+      }
+    } else {
+      const locationsList = allLocations.slice(0, 8).join(", ");
+      addBotMessage(`${t('error_no_locations')} ${allLocations[0]} to ${allLocations[1]}". ${t('availLocations')} ${locationsList}`);
+    }
+  }
+
+  function bookRideWithVoice(pickup, dropoff) {
+    // Store pickup and dropoff
+    currentBooking.pickup = pickup;
+    currentBooking.dropoff = dropoff;
+    currentBooking.step = 'date';
+
+    // Get top drivers for display
+    const topDrivers = getTopDrivers(pickup);
+    let driverList = "<b>Top Drivers in " + pickup + ":</b><br>";
+    topDrivers.forEach(d => {
+      driverList += `🚖 ${d.name} ⭐${d.rating}<br>`;
+    });
+
+    addBotMessage(`✅ Great! ${t('bookingFrom')} <b>${pickup}</b> ${t('bookingTo')} <b>${dropoff}</b>\n\n${driverList}`);
+    
+    // Ask for date
+    setTimeout(() => {
+      addBotMessage(t('askDate'));
+    }, 1000);
+  }
+
+  function handleDateResponse(text) {
+    text = text.trim();
+    const textLower = text.toLowerCase();
+
+    // Match "today" - English and other languages
+    if (textLower.match(/\btoday\b/) || textLower.match(/\baj\b/) || textLower.match(/\baaj\b/) ||
+        text.includes("आज") || text.includes("আজ") || text.includes("ਅੱ")) {
+      currentBooking.date = "Today";
+      addBotMessage(`${t('dateSet')} <b>Today</b>`);
+      currentBooking.step = 'timing';
+      setTimeout(() => {
+        addBotMessage(t('askTime'));
+      }, 1000);
+      return;
+    }
+    
+    // Match "tomorrow" - English and other languages
+    if (textLower.match(/\btomorrow\b/) || textLower.match(/\bkal\b/) || textLower.match(/\bkaal\b/) ||
+        text.includes("कल") || text.includes("আগামীকাল") || text.includes("ਕੱਲ")) {
+      currentBooking.date = "Tomorrow";
+      addBotMessage(`${t('dateSet')} <b>Tomorrow</b>`);
+      currentBooking.step = 'timing';
+      setTimeout(() => {
+        addBotMessage(t('askTime'));
+      }, 1000);
+      return;
+    }
+    
+    // Match "day after tomorrow"
+    if (textLower.match(/\bday after tomorrow\b/) || textLower.match(/\baftertomorrow\b/) || textLower.match(/\bparso\b/) ||
+        text.includes("परसों") || text.includes("তৃতীয়দিন")) {
+      currentBooking.date = "Day after tomorrow";
+      addBotMessage(`${t('dateSet')} <b>Day after tomorrow</b>`);
+      currentBooking.step = 'timing';
+      setTimeout(() => {
+        addBotMessage(t('askTime'));
+      }, 1000);
+      return;
+    }
+    
+    // Try to extract specific date (e.g., "5 april", "अप्रैल 5")
+    const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december", 
+                    "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep", "sept", "oct", "nov", "dec",
+                    "जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
+    
+    for (let month of months) {
+      const dateMatch = textLower.match(new RegExp(`(\\d{1,2})\\s+${month}|${month}\\s+(\\d{1,2})`, "i"));
+      if (dateMatch || text.includes(month)) {
+        const day = dateMatch ? (dateMatch[1] || dateMatch[2]) : "";
+        currentBooking.date = day ? `${day} ${month.charAt(0).toUpperCase() + month.slice(1)}` : month;
+        addBotMessage(`${t('dateSet')} <b>${currentBooking.date}</b>`);
+        currentBooking.step = 'timing';
+        setTimeout(() => {
+          addBotMessage(t('askTime'));
+        }, 1000);
+        return;
+      }
+    }
+    
+    // If no date matched, ask again
+    addBotMessage(`${t('error_date')} You said: "${text}"`);
+  }
+
+  function handleTimingResponse(text) {
+    let timing = null;
+    text = text.trim();
+    const textLower = text.toLowerCase();
+
+    // Match "now" - English and other languages
+    if (textLower.match(/\bnow\b/) || textLower.match(/\bforan\b/) || textLower.match(/\babhi\b/) ||
+        text.includes("अभी") || text.includes("এখন") || text.includes("ਹੁਣ")) {
+      timing = "Now";
+    }
+    // Match "morning" - English and other languages
+    else if (textLower.match(/\bmorning\b/) || textLower.match(/\bsabah\b/) || textLower.match(/\bsavere\b/) ||
+             text.includes("सुबह") || text.includes("রাতে") || text.includes("ਸਵੇਰ")) {
+      timing = "Morning (8-11 AM)";
+    }
+    // Match "afternoon" - English and other languages
+    else if (textLower.match(/\bafternoon\b/) || textLower.match(/\bdophar\b/) || textLower.match(/\bdupehri\b/) || textLower.match(/\bupahari\b/) ||
+             text.includes("दोपहर") || text.includes("দুপুর") || text.includes("ਦੁਪਹਿਰ")) {
+      timing = "Afternoon (12-3 PM)";
+    }
+    // Match "evening" - English and other languages
+    else if (textLower.match(/\bevening\b/) || textLower.match(/\bshaam\b/) || textLower.match(/\bshaaam\b/) ||
+             text.includes("शाम") || text.includes("সন্ধ্যা") || text.includes("ਸ਼ਾਮ")) {
+      timing = "Evening (4-7 PM)";
+    }
+    // Match "night" - English and other languages
+    else if (textLower.match(/\bnight\b/) || textLower.match(/\brat\b/) || textLower.match(/\braat\b/) ||
+             text.includes("रात") || text.includes("রাত") || text.includes("ਰਾਤ")) {
+      timing = "Night (8 PM onwards)";
+    }
+    // Try to extract specific time (e.g., "3 pm", "15:00", "3 o'clock")
+    else {
+      const timeMatch = textLower.match(/(\d{1,2})\s*(am|pm|a\.m|p\.m|o'?clock|oclock)/i);
+      if (timeMatch) {
+        timing = timeMatch[0].toUpperCase();
+      }
+    }
+
+    // If timing found, show driver selection
+    if (timing) {
+      currentBooking.timing = timing;
+      currentBooking.step = 'driver';
+      addBotMessage(`${t('timeSet')} <b>${timing}</b>`);
+      setTimeout(() => {
+        showDriverSelection();
+      }, 1500);
+    } else {
+      // If no timing matched, ask again
+      addBotMessage(`${t('error_time')} You said: "${text}". Please try: now, morning, afternoon, evening, or night`);
+    }
+  }
+
+  function showDriverSelection() {
+    const { pickup, dropoff, date, timing } = currentBooking;
+    const topDrivers = getTopDrivers(pickup);
+    
+    if (topDrivers.length === 0) {
+      addBotMessage(t('noDrivers') + " " + pickup + ". " + t('proceedPayment'));
+      setTimeout(() => {
+        proceedToPayment();
+      }, 2000);
+      return;
+    }
+
+    // Display in selected language with translations
+    let driverList = `<b>⭐ ${t('topDrivers')} ${pickup}:</b><br><br>`;
+    topDrivers.forEach((driver, index) => {
+      driverList += `<b>${index + 1}. ${driver.name}</b> - ⭐${driver.rating}/5.0<br>📞 ${driver.phone}<br><br>`;
+    });
+    
+    // Add multilingual instruction
+    driverList += `${t('saySelect')}`;
+    addBotMessage(driverList);
+  }
+
+  function handleDriverSelection(text) {
+    text = text.trim();  // Don't use toLowerCase - numbers are unaffected and this preserves non-Latin script
+    const textLower = text.toLowerCase();
+    const { pickup } = currentBooking;
+    const topDrivers = getTopDrivers(pickup);
+    
+    // Extract driver number (1, 2, 3, etc.)
+    const numberMatch = textLower.match(/\b([1-9])\b/);
+    
+    if (numberMatch) {
+      const driverIndex = parseInt(numberMatch[1]) - 1;
+      
+      if (driverIndex >= 0 && driverIndex < topDrivers.length) {
+        const selectedDriver = topDrivers[driverIndex];
+        currentBooking.driver = selectedDriver.name;
+        
+        // Use multilingual translations
+        addBotMessage(`✅ <b>${t('driverSelected')} ${selectedDriver.name}</b>\n⭐ ${t('rating')} ${selectedDriver.rating}/5.0\n📞 ${t('phone')}: ${selectedDriver.phone}`);
+        
+        setTimeout(() => {
+          proceedToPayment();
+        }, 2000);
+        return;
+      }
+    }
+    
+    addBotMessage(`❌ ${t('error_understand')} "${t('saySelect')}\"`);
+  }
+
+  function proceedToPayment() {
+    const { pickup, dropoff, date, timing, driver } = currentBooking;
+
+    // Store ride details
+    const rideDetails = {
+      from: pickup,
+      to: dropoff,
+      date: date,
+      timing: timing,
+      driver: driver || "Not Selected",
+      scheduledDate: new Date().toISOString(),
+      amount: 250
+    };
+
+    previousRides.push(rideDetails);
+    localStorage.setItem('previousRides', JSON.stringify(previousRides));
+    localStorage.setItem('rideFrom', pickup);
+    localStorage.setItem('rideTo', dropoff);
+    localStorage.setItem('rideDate', date);
+    localStorage.setItem('rideTiming', timing);
+    localStorage.setItem('rideDriver', driver || "Not Selected");
+
+    let confirmationMsg = `✅ <b>${t('confirmed')}</b>\n\n${t('from')} ${pickup}\n${t('to')} ${dropoff}\n${t('date')} ${date}\n${t('time')} ${timing}`;
+    
+    if (driver) {
+      confirmationMsg += `\n🚖 Driver: ${driver}`;
+    }
+    
+    confirmationMsg += `\n\n${t('proceedPayment')}`;
+    addBotMessage(confirmationMsg);
+
+    setTimeout(() => {
+      // Fill form
+      document.getElementById("from").value = pickup;
+      document.getElementById("to").value = dropoff;
+      
+      // Navigate to payment
+      localStorage.setItem('rideAmount', '250');
+      window.location.href = 'payment.html?from=' + encodeURIComponent(pickup) + 
+                             '&to=' + encodeURIComponent(dropoff) + 
+                             '&date=' + encodeURIComponent(date) +
+                             '&timing=' + encodeURIComponent(timing) +
+                             '&distance=12 km&duration=25 mins&amount=250';
+    }, 2000);
+
+    // Reset booking state
+    currentBooking = {
+      pickup: null,
+      dropoff: null,
+      date: null,
+      timing: null,
+      driver: null,
+      step: null
+    };
+  }
+
+  // ============ DRIVER MANAGEMENT ============
+  function getTopDrivers(location) {
+    if (driverDatabase[location]) {
+      return driverDatabase[location].sort((a, b) => b.rating - a.rating);
+    }
+    return [];
+  }
+
+  function handleDriverCommand(text) {
+    let location = "";
+    allLocations.forEach(loc => {
+      if (text.includes(loc.toLowerCase())) {
+        location = loc;
+      }
+    });
+
+    if (!location) {
+      addBotMessage("Which area? " + allLocations.join(", "));
+      return;
+    }
+
+    const topDrivers = getTopDrivers(location);
+    if (topDrivers.length === 0) {
+      addBotMessage(t('noDrivers') + " " + location);
+      return;
+    }
+
+    let response = `<b>⭐ ${t('topDrivers')} ${location}:</b><br><br>`;
+    topDrivers.forEach((driver, index) => {
+      response += `${index + 1}. ${driver.name} - ⭐${driver.rating}/5.0 (${driver.phone})<br><br>`;
+    });
+
+    addBotMessage(response);
+  }
+
+  // ============ PREVIOUS RIDES ============
+  function showPreviousRides() {
+    if (previousRides.length === 0) {
+      addBotMessage(t('prevRides'));
+      return;
+    }
+
+    let response = `<b>${t('prevRidesTitle')}</b><br><br>`;
+    previousRides.slice(-5).reverse().forEach((ride, index) => {
+      response += `${index + 1}. ${ride.from} → ${ride.to}<br>`;
+    });
+    response += `<br>${t('rebook')}`;
+
+    addBotMessage(response);
+  }
+
+  function handleRebookCommand() {
+    if (previousRides.length === 0) {
+      addBotMessage(t('noPrevRides'));
+      return;
+    }
+
+    const lastRide = previousRides[previousRides.length - 1];
+    bookRideWithVoice(lastRide.from, lastRide.to);
+  }
+
+  // ============ ADD LOCATION ============
+  function handleAddLocation(text) {
+    // Extract potential location name
+    const words = text.split(" ");
+    const textLower = text.toLowerCase();
+    let newLocation = "";
+    
+    // Try to extract new location - support both Latin and non-Latin searches
+    if (textLower.includes("add location") || textLower.includes("add") ||
+        text.includes("जोड़") || text.includes("যোগ") || 
+        text.includes("ਜੋੜ") || text.includes("ചേർ")) {
+      const idx = words.findIndex((w, i, arr) => w.toLowerCase() === "location" || arr[i-1]?.toLowerCase() === "add") + 1;
+      if (idx > 0 && idx < words.length) {
+        newLocation = words.slice(idx).join(" ").trim();
+      }
+    }
+
+    if (newLocation && !allLocations.includes(newLocation)) {
+      if (addLocation(newLocation)) {
+        addBotMessage(`✅ ${t('locationAdded')} ${newLocation}`);
+      }
+    } else {
+      addBotMessage(t('addLocationExample'));
+    }
+  }
+
+  // ============ SEARCH & BOOK FUNCTIONS ============
+  function searchRide() {
+    const from = document.getElementById("from").value;
+    const to = document.getElementById("to").value;
+
+    if (!from || !to) {
+      alert("Please select both locations");
+      return;
+    }
+
+    document.getElementById("result").innerText = `Searching rides from ${from} to ${to}...`;
+    showDrivers(from);
+  }
+
+  function bookRide() {
+    const from = document.getElementById("from").value;
+    const to = document.getElementById("to").value;
+
+    if (!from || !to) {
+      alert("Please select both pickup and drop locations");
+      return;
+    }
+
+    bookRideWithVoice(from, to);
+  }
+
+  function showDrivers(location) {
+    const topDrivers = getTopDrivers(location);
+    let html = "<b>⭐ Available Drivers:</b><br>";
+    
+    if (topDrivers.length === 0) {
+      html = "No drivers available";
+    } else {
+      topDrivers.forEach(d => {
+        html += `🚖 ${d.name} ⭐${d.rating} (${d.phone})<br>`;
+      });
+    }
+
+    document.getElementById("result").innerHTML = html;
+  }
+
+  // ============ HELP MODAL ============
+  function openHelpModal() {
+    const helpModalBody = document.querySelector('.help-modal-body');
+    
+    // Generate translated help content
+    let content = `
+      <div class="help-section">
+        <div class="help-title">${t('help_book')}</div>
+        <div class="help-command">
+          <div class="help-command-text">${t('help_book_cmd')}</div>
+          <div class="help-command-desc">${t('help_book_desc')}</div>
+        </div>
+        <div class="help-command">
+          <div class="help-command-text">${t('help_date')}</div>
+          <div class="help-command-desc">${t('help_date_desc')}</div>
+        </div>
+        <div class="help-command">
+          <div class="help-command-text">${t('help_time')}</div>
+          <div class="help-command-desc">${t('help_time_desc')}</div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <div class="help-title">${t('help_drivers')}</div>
+        <div class="help-command">
+          <div class="help-command-text">${t('help_drivers_cmd')}</div>
+          <div class="help-command-desc">${t('help_drivers_desc')}</div>
+        </div>
+        <div class="help-command">
+          <div class="help-command-text">${t('help_drivers_info')}</div>
+          <div class="help-command-desc">${t('help_drivers_info_desc')}</div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <div class="help-title">${t('help_prev')}</div>
+        <div class="help-command">
+          <div class="help-command-text">${t('help_prev_cmd')}</div>
+          <div class="help-command-desc">${t('help_prev_desc')}</div>
+        </div>
+        <div class="help-command">
+          <div class="help-command-text">${t('help_rebook_cmd')}</div>
+          <div class="help-command-desc">${t('help_rebook_desc')}</div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <div class="help-title">${t('help_addloc')}</div>
+        <div class="help-command">
+          <div class="help-command-text">${t('help_addloc_cmd')}</div>
+          <div class="help-command-desc">${t('help_addloc_desc')}</div>
+        </div>
+        <div class="help-command">
+          <div class="help-command-text">${t('help_addloc_save')}</div>
+          <div class="help-command-desc">${t('help_addloc_save_desc')}</div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <div class="help-title">${t('help_locations')}</div>
+        <div class="help-command">
+          <div class="help-command-text">${t('help_locations_list')}</div>
+          <div class="help-command-desc">${t('help_locations_desc')}</div>
+        </div>
+      </div>
+
+      <div class="help-tip">
+        <strong>${t('help_tips')}</strong><br>
+        ${t('help_tips_mic')}<br>
+        ${t('help_tips_lang')}<br>
+        ${t('help_tips_clear')}<br>
+        ${t('help_tips_text')}
+      </div>
+    `;
+    
+    // Update help modal header title to translated version
+    const helpModalHeader = document.querySelector('.help-modal-header');
+    if (helpModalHeader) {
+      const closeBtn = helpModalHeader.querySelector('button');
+      helpModalHeader.innerHTML = `${t('help_title')}<button class="help-modal-close" onclick="closeHelpModal()">✕</button>`;
+    }
+    
+    // Update body content
+    helpModalBody.innerHTML = content;
+    
+    // Show modal
+    const helpModal = document.getElementById("helpModal");
+    helpModal.classList.add("active");
+  }
+
+  function closeHelpModal() {
+    const helpModal = document.getElementById("helpModal");
+    helpModal.classList.remove("active");
+  }
+
+  // Close help modal when clicking outside
+  window.onclick = function(event) {
+    const helpModal = document.getElementById("helpModal");
+    if (event.target == helpModal) {
+      helpModal.classList.remove("active");
+    }
+  };
+
+  // ============ INITIALIZATION ============
+  window.onload = function() {
+    initializeLocations();
+    previousRides = JSON.parse(localStorage.getItem('previousRides') || '[]');
+  };
 </script>
 
 </body>

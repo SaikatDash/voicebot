@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payment - Carpool Booking</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    .payment-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid teal;
+      padding-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      color: teal;
+    }
+
+    .ride-details {
+      background: #e0f2f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .value {
+      color: #555;
+    }
+
+    .total {
+      font-size: 20px;
+      color: teal;
+      font-weight: bold;
+    }
+
+    .payment-form {
+      margin: 30px 0;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border: 2px solid teal;
+      box-shadow: 0 0 5px rgba(0, 128, 128, 0.3);
+    }
+
+    .card-row {
+      display: flex;
+      gap: 15px;
+    }
+
+    .card-row .form-group {
+      flex: 1;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    button {
+      flex: 1;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .pay-btn {
+      background: teal;
+      color: white;
+    }
+
+    .pay-btn:hover {
+      background: #006b5c;
+    }
+
+    .cancel-btn {
+      background: #ddd;
+      color: #333;
+    }
+
+    .cancel-btn:hover {
+      background: #ccc;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      color: green;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .error-message {
+      display: none;
+      text-align: center;
+      color: red;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="payment-container">
+  <div class="header">
+    <h1>💳 Payment</h1>
+    <p>Complete your carpool booking</p>
+  </div>
+
+  <!-- Ride Details -->
+  <div class="ride-details">
+    <div class="detail-row">
+      <span class="label">📍 From:</span>
+      <span class="value" id="displayFrom">-</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">📍 To:</span>
+      <span class="value" id="displayTo">-</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">🚗 Distance:</span>
+      <span class="value" id="displayDistance">-</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">⏱️ Duration:</span>
+      <span class="value" id="displayDuration">-</span>
+    </div>
+    <div class="detail-row">
+      <span class="label">👥 Passengers:</span>
+      <span class="value" id="displayPassengers">1</span>
+    </div>
+    <hr style="margin: 15px 0; border: none; border-top: 1px solid #bbb;">
+    <div class="detail-row total">
+      <span>Total Amount:</span>
+      <span id="displayTotal">₹ 250</span>
+    </div>
+  </div>
+
+  <!-- Payment Form -->
+  <form class="payment-form" onsubmit="processPayment(event)">
+    <!-- Cardholder Name -->
+    <div class="form-group">
+      <label for="cardName">💳 Cardholder Name</label>
+      <input type="text" id="cardName" placeholder="John Doe" required>
+    </div>
+
+    <!-- Card Number -->
+    <div class="form-group">
+      <label for="cardNumber">Card Number</label>
+      <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+    </div>
+
+    <!-- Expiry and CVV -->
+    <div class="card-row">
+      <div class="form-group">
+        <label for="expiry">Expiry Date (MM/YY)</label>
+        <input type="text" id="expiry" placeholder="12/25" maxlength="5" required>
+      </div>
+      <div class="form-group">
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" placeholder="123" maxlength="3" required>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">📧 Email</label>
+      <input type="email" id="email" placeholder="john@example.com" required>
+    </div>
+
+    <!-- Phone -->
+    <div class="form-group">
+      <label for="phone">📱 Phone Number</label>
+      <input type="tel" id="phone" placeholder="+91 9876543210" required>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-group">
+      <button type="button" class="cancel-btn" onclick="goBack()">Cancel</button>
+      <button type="submit" class="pay-btn">Pay ₹<span id="payAmount">250</span></button>
+    </div>
+
+    <div class="success-message" id="successMessage">
+      ✅ Payment Successful! Your ride is confirmed.
+    </div>
+    <div class="error-message" id="errorMessage">
+      ❌ Payment failed. Please try again.
+    </div>
+  </form>
+</div>
+
+<script>
+// Get ride details from URL parameters or localStorage
+function getRideDetails() {
+  const params = new URLSearchParams(window.location.search);
+  const from = params.get('from') || localStorage.getItem('rideFrom') || 'Unknown';
+  const to = params.get('to') || localStorage.getItem('rideTo') || 'Unknown';
+  const distance = params.get('distance') || localStorage.getItem('rideDistance') || '12 km';
+  const duration = params.get('duration') || localStorage.getItem('rideDuration') || '25 mins';
+  const amount = params.get('amount') || localStorage.getItem('rideAmount') || '250';
+
+  // Display ride details
+  document.getElementById('displayFrom').innerText = from;
+  document.getElementById('displayTo').innerText = to;
+  document.getElementById('displayDistance').innerText = distance;
+  document.getElementById('displayDuration').innerText = duration;
+  document.getElementById('displayTotal').innerText = '₹ ' + amount;
+  document.getElementById('payAmount').innerText = amount;
+}
+
+// Format card number input
+document.getElementById('cardNumber').addEventListener('input', function(e) {
+  let value = e.target.value.replace(/\s/g, '');
+  let formatted = value.replace(/(\d{4})/g, '$1 ').trim();
+  e.target.value = formatted;
+});
+
+// Format expiry input
+document.getElementById('expiry').addEventListener('input', function(e) {
+  let value = e.target.value.replace(/\D/g, '');
+  if (value.length >= 2) {
+    value = value.slice(0, 2) + '/' + value.slice(2, 4);
+  }
+  e.target.value = value;
+});
+
+// CVV only numbers
+document.getElementById('cvv').addEventListener('input', function(e) {
+  e.target.value = e.target.value.replace(/\D/g, '');
+});
+
+// Process payment
+function processPayment(event) {
+  event.preventDefault();
+
+  const cardName = document.getElementById('cardName').value;
+  const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+  const expiry = document.getElementById('expiry').value;
+  const cvv = document.getElementById('cvv').value;
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
+
+  // Validate card details
+  if (cardNumber.length !== 16) {
+    showError('Invalid card number');
+    return;
+  }
+
+  if (cvv.length !== 3) {
+    showError('Invalid CVV');
+    return;
+  }
+
+  if (!/^\d{2}\/\d{2}$/.test(expiry)) {
+    showError('Invalid expiry date (MM/YY)');
+    return;
+  }
+
+  // Simulate payment processing
+  console.log('Processing payment...');
+  console.log({
+    name: cardName,
+    card: cardNumber.slice(-4),
+    email: email,
+    phone: phone
+  });
+
+  // Show success message
+  document.getElementById('successMessage').style.display = 'block';
+  document.querySelector('form').style.opacity = '0.5';
+
+  setTimeout(() => {
+    alert('✅ Payment Successful! Your ride is confirmed.');
+    window.history.back();
+  }, 2000);
+}
+
+function showError(message) {
+  const errorDiv = document.getElementById('errorMessage');
+  errorDiv.innerText = '❌ ' + message;
+  errorDiv.style.display = 'block';
+  setTimeout(() => {
+    errorDiv.style.display = 'none';
+  }, 3000);
+}
+
+function goBack() {
+  window.history.back();
+}
+
+// Load ride details on page load
+window.onload = getRideDetails;
+</script>
+
+</body>
+</html>
