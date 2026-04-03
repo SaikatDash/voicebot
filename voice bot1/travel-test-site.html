@@ -334,11 +334,13 @@
   <input id="from" list="locations" placeholder="Pickup (e.g. Howrah)">
   <input id="to" list="locations" placeholder="Drop (e.g. New Town)">
   <input id="date" type="date">
+  <input id="time" type="time" placeholder="Time (e.g. 15:30)">
 
   <button id="searchBtn" onclick="searchRide()">Search Ride</button>
   <button id="bookBtn" onclick="bookRide()">Book Ride</button>
 
   <div id="result" class="result">Waiting...</div>
+  <div id="bookingStatus" class="result" style="background:#e8f0ff; border:1px solid #c3d7ff;">No booking input detected yet.</div>
 </div>
 
 <!-- CHATBOT ICON -->
@@ -353,8 +355,6 @@
         <option value="en" style="color: black;">English</option>
         <option value="bn" style="color: black;">Bengali</option>
         <option value="hi" style="color: black;">Hindi</option>
-        <option value="pa" style="color: black;">Punjabi</option>
-        <option value="ml" style="color: black;">Malayalam</option>
       </select>
     </div>
     <div style="display: flex; gap: 5px;">
@@ -392,11 +392,26 @@
   
   // Location names in multiple languages for better matching
   const locationVariants = {
-    "Howrah": ["Howrah", "हावड़ा", "হাওড়া", "ਬਾਓੜਾ", "ഹാവൌ", "howrah"],
-    "Kolkata": ["Kolkata", "कोलकाता", "কলকাতা", "ਕੋਲਕਾਤਾ", "കോലുനാ", "kolkata"],
-    "Salt Lake": ["Salt Lake", "सल्ट लेक", "সল্ট লেক", "ਸੋਲਟ ਲੇਕ", "സോൾട് ലേക്", "salt lake"],
-    "New Town": ["New Town", "नई दिल्ली", "নিউ টাউন", "ਨਿਊ ਟਾਊਨ", "നിയു ടൗൺ", "new town"]
+    "Howrah": ["Howrah", "हावड़ा", "হাওড়া", "howrah"],
+    "Kolkata": ["Kolkata", "कोलकाता", "কলকাতা",  "kolkata"],
+    "SaltLake": ["SaltLake", "सल्टलेक", "সল্টলেক", "salt lake"],
+    "NewTown": ["NewTown", "न्यूटाउन", "নিউটাউন", "newtown"]
   };
+
+  function detectLocations(text) {
+  let found = [];
+
+  for (const [location, variants] of Object.entries(locationVariants)) {
+    for (const variant of variants) {
+      if (text.toLowerCase().includes(variant.toLowerCase())) {
+        found.push(location);
+        break;
+      }
+    }
+  }
+
+  return [...new Set(found)];
+}
   
   let previousRides = [];
   let currentBooking = {
@@ -410,48 +425,48 @@
 
   const translations = {
     en: {
-      hello: "👋 Hello! How can I help you today? 💡 Try saying:\n• \"Book ride from Howrah to New Town\"\n• \"Show previous rides\"\n• \"Add new location\"\n• \"Show drivers in [area]\"",
+      hello: " Hello! How can I help you today?  Try saying:\n• \"Book ride from Howrah to New Town\"\n• \"Show previous rides\"\n• \"Add new location\"\n• \"Show drivers in [area]\"",
       bookingFrom: "Booking ride from",
       bookingTo: "to",
-      askDate: "📅 When do you want to book this ride?\n\nSay: today, tomorrow, or a specific date (e.g., April 5)",
-      dateSet: "📅 Date set to:",
-      askTime: "⏰ What time would you prefer?\n\nSay: now, morning, afternoon, evening, or a specific time (e.g., 3 PM)",
-      timeSet: "⏰ Time set to:",
-      confirmed: "✅ Booking Confirmed!",
+      askDate: " When do you want to book this ride?\n\nSay: today, tomorrow, or a specific date (e.g., April 5)",
+      dateSet: " Date set to:",
+      askTime: " What time would you prefer?\n\nSay: now, morning, afternoon, evening, or a specific time (e.g., 3 PM)",
+      timeSet: " Time set to:",
+      confirmed: " Booking Confirmed!",
       from: "📍 From:",
       to: "📍 To:",
-      date: "📅 Date:",
-      time: "⏰ Time:",
+      date: " Date:",
+      time: " Time:",
       proceedPayment: "💳 Proceeding to payment...",
-      error_same_location: "❌ Pickup and dropoff can't be the same. Please specify different locations.",
-      error_no_locations: "❌ I need both pickup and dropoff locations. Example: \"Book ride from",
-      error_date: "❌ I didn't understand the date. Please say: today, tomorrow, or a specific date (April 5)",
-      error_time: "❌ I didn't understand the time. Please say: morning, afternoon, evening, or a specific time (3 PM)",
+      error_same_location: " Pickup and dropoff can't be the same. Please specify different locations.",
+      error_no_locations: " I need both pickup and dropoff locations. Example: \"Book ride from",
+      error_date: " I didn't understand the date. Please say: today, tomorrow, or a specific date (April 5)",
+      error_time: " I didn't understand the time. Please say: morning, afternoon, evening, or a specific time (3 PM)",
       error_understand: "I didn't understand that command. Please try:\n• Book ride\n• Show drivers\n• Previous rides\n• Add location",
       noDrivers: "No drivers available in",
-      topDrivers: "⭐ Top Drivers in",
+      topDrivers: " Top Drivers in",
       prevRides: "You haven't booked any rides yet. Say 'book ride' to get started!",
-      prevRidesTitle: "📋 Your Previous Rides:",
+      prevRidesTitle: " Your Previous Rides:",
       rebook: "Say 'rebook' to book the last ride again!",
       noPrevRides: "No previous rides to rebook. Start a new booking!",
       couldNotUnderstand: "Sorry, I couldn't understand. Please try again!",
       availLocations: "Valid locations:",
       locationAdded: "Added to locations database! Now you can say: Book ride from",
       addLocationExample: "Please tell me the new location name. Example: 'Add location Bangalore'",
-      help_title: "📖 Voice Command Guide",
-      help_book: "🚗 BOOK A RIDE",
+      help_title: " Voice Command Guide",
+      help_book: " BOOK A RIDE",
       help_book_cmd: "Say: \"Book ride from [location] to [location]\"",
       help_book_desc: "Examples: \"Book from Howrah to New Town\", \"Ride from Kolkata to Salt Lake\"",
       help_date: "Then say DATE: \"Today\", \"Tomorrow\", or \"April 5\"",
       help_date_desc: "The bot will ask when you want to book",
       help_time: "Then say TIME: \"Morning\", \"Afternoon\", \"Evening\", or \"Now\"",
       help_time_desc: "Choose your preferred time slot",
-      help_drivers: "👥 SHOW DRIVERS",
+      help_drivers: " SHOW DRIVERS",
       help_drivers_cmd: "Say: \"Show drivers in [location]\"",
       help_drivers_desc: "Examples: \"Show drivers in Howrah\", \"Drivers in New Town\"",
       help_drivers_info: "Driver names, ratings, and phone numbers",
       help_drivers_info_desc: "Filter by area to find available drivers",
-      help_prev: "📋 PREVIOUS RIDES",
+      help_prev: " PREVIOUS RIDES",
       help_prev_cmd: "Say: \"Show previous rides\" or \"History\"",
       help_prev_desc: "View your last 5 booked rides",
       help_rebook_cmd: "Say: \"Rebook\" or \"Book again\"",
@@ -477,7 +492,7 @@
       phone: "Phone:"
     },
     bn: {
-      hello: "👋 নমস্কার! আমি আপনাকে কীভাবে সাহায্য করতে পারি? 💡 চেষ্টা করুন:\n• \"হাওড়া থেকে নিউ টাউনে রাইড বুক করুন\"\n• \"আগের রাইডগুলি দেখান\"\n• \"নতুন অবস্থান যোগ করুন\"\n• \"[এলাকায়] চালক দেখান\"",
+      hello: " নমস্কার! আমি আপনাকে কীভাবে সাহায্য করতে পারি?  চেষ্টা করুন:\n• \"হাওড়া থেকে নিউ টাউনে রাইড বুক করুন\"\n• \"আগের রাইডগুলি দেখান\"\n• \"নতুন অবস্থান যোগ করুন\"\n• \"[এলাকায়] চালক দেখান\"",
       bookingFrom: "রাইড বুকিং করছি",
       bookingTo: "থেকে",
       askDate: "📅 আপনি এই রাইডটি কখন বুক করতে চান?\n\nবলুন: আজ, আগামীকাল, বা একটি নির্দিষ্ট তারিখ (যেমন এপ্রিল ৫)",
@@ -610,73 +625,6 @@
       rating: "रेटिंग:",
       phone: "फोन:"
     },
-    pa: {
-      hello: "👋 ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈ ਤੁਹਾਨੂੰ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ? 💡 ਕੋਸ਼ਿਸ਼ ਕਰੋ:\n• \"ਹਾਓੜਾ ਤੋਂ ਨਿਊ ਟਾਊਨ ਤੀਕ ਰਾਈਡ ਬੁੱਕ ਕਰੋ\"\n• \"ਪਿਛਲੀ ਰਾਈਡ ਦਿਖਾਓ\"\n• \"ਨਵਾਂ ਸਥਾਨ ਜੋੜ ਦਿਓ\"\n• \"[ਖੇਤਰ ਵਿੱਚ] ਡ੍ਰਾਈਵਰ ਦਿਖਾਓ\"",
-      bookingFrom: "ਰਾਈਡ ਬੁਕ ਕਰ ਰਹੇ ਹੋ",
-      bookingTo: "ਤੋਂ",
-      askDate: "📅 ਤੁਸੀਂ ਇਸ ਰਾਈਡ ਨੂੰ ਕਦੋਂ ਬੁੱਕ ਕਰਨਾ ਚਾਹਦੇ ਹੋ?\n\nਕਹੋ: ਅੱਜ, ਕੱਲ, ਜਾਂ ਇੱਕ ਖਾਸ ਤਾਰੀਖ (ਜਿਵੇਂ ਅਪ੍ਰੈਲ 5)",
-      dateSet: "📅 ਤਾਰੀਖ ਤੈਅ ਕਰ ਦਿੱਤੀ ਗਈ:",
-      askTime: "⏰ ਤੁਸੀਂ ਕਿਹੜਾ ਸਮਾਂ ਪਸੰਦ ਕਰੋਗੇ?\n\nਕਹੋ: ਹੁਣ, ਸਵੇਰ, ਦੁਪਹਿਰ, ਸ਼ਾਮ, ਜਾਂ ਖਾਸ ਸਮਾਂ (ਜਿਵੇਂ 3 ਵਜੇ)",
-      timeSet: "⏰ ਸਮਾਂ ਤੈਅ ਕਰ ਦਿੱਤਾ ਗਿਆ:",
-      confirmed: "✅ ਬੁਕਿੰਗ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ!",
-      from: "📍 ਤੋਂ:",
-      to: "📍 ਨੂੰ:",
-      date: "📅 ਤਾਰੀਖ:",
-      time: "⏰ ਸਮਾਂ:",
-      proceedPayment: "💳 ਭੁਗਤਾਨ ਵੱਲ ਅਗਲੇ ਪੜਾਅ ਤੇ ਜਾ ਰਹੇ ਹੋ...",
-      error_same_location: "❌ ਪਿਕਅਪ ਅਤੇ ਡ੍ਰਾਪ ਆਫ ਇਕੋ ਜਿਹੇ ਨਹੀਂ ਹੋ ਸਕਦੇ। ਕਿਰਪਾ ਕਰਕੇ ਵਿਭਿੰਨ ਸਥਾਨ ਨਿਰਧਾਰਤ ਕਰੋ।",
-      error_no_locations: "❌ ਮੌਖਿਕ ਪਿਕਅਪ ਅਤੇ ਡ੍ਰਾਪ ਆਫ ਦੋਵੇਂ ਸਥਾਨ ਚਾਹੀਦੇ ਹਨ। ਉਦਾਹਰਣ: ਤੋਂ ਰਾਈਡ ਬੁੱਕ ਕਰੋ",
-      error_date: "❌ ਮੈਂ ਤਾਰੀਖ ਨੂੰ ਸਮਝ ਨਹੀਂ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਕਹੋ: ਅੱਜ, ਕੱਲ, ਜਾਂ ਇੱਕ ਖਾਸ ਤਾਰੀਖ",
-      error_time: "❌ ਮੈਂ ਸਮਾਂ ਨੂੰ ਸਮਝ ਨਹੀਂ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਕਹੋ: ਸਵੇਰ, ਦੁਪਹਿਰ, ਸ਼ਾਮ, ਜਾਂ ਖਾਸ ਸਮਾਂ",
-      error_understand: "ਮੈ ਉਸ ਕਮਾਂਡ ਨੂੰ ਸਮਝ ਨਹੀਂ ਸਕਿਆ। ਕੋਸ਼ਿਸ਼ ਕਰੋ:\n• ਰਾਈਡ ਬੁੱਕ ਕਰੋ\n• ਡ੍ਰਾਈਵਰ ਦਿਖਾਓ\n• ਪਿਛਲੀ ਰਾਈਡ\n• ਸਥਾਨ ਜੋੜ ਦਿਓ",
-      noDrivers: "ਇਸ ਵਿੱਚ ਕੋਈ ਡ੍ਰਾਈਵਰ ਉਪਲਬਧ ਨਹੀਂ ਹੈ",
-      topDrivers: "⭐ ਸ਼ਾਨਦਾਰ ਡ੍ਰਾਈਵਰ",
-      prevRides: "ਤੁਸੀਂ ਹਾਲੇ ਕੋਈ ਰਾਈਡ ਬੁੱਕ ਨਹੀਂ ਕੀਤੀ ਹੈ। ਸ਼ੁਰੂ ਕਰਨ ਲਈ 'ਰਾਈਡ ਬੁੱਕ ਕਰੋ' ਕਹੋ!",
-      prevRidesTitle: "📋 ਤੁਹਾਡੀ ਪਿਛਲੀ ਰਾਈਡ:",
-      rebook: "ਪਿਛਲੀ ਰਾਈਡ ਨੂੰ ਮੁੜ ਬੁੱਕ ਕਰਨ ਲਈ 'ਮੁੜ ਬੁੱਕ ਕਰੋ' ਕਹੋ!",
-      noPrevRides: "ਮੁੜ ਬੁਕਿੰਗ ਲਈ ਕੋਈ ਪਿਛਲੀ ਰਾਈਡ ਨਹੀਂ ਹੈ। ਨਵੀਂ ਬੁਕਿੰਗ ਸ਼ੁਰੂ ਕਰੋ!",
-      couldNotUnderstand: "ਮਾਫ ਕੀਜਿਓ, ਮੈ ਨੂੰ ਸਮਝ ਨਹੀਂ ਆਇਆ। ਦੋਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ!",
-      availLocations: "ਵੈਧ ਸਥਾਨ:",
-      locationAdded: "ਸਥਾਨ ਡਾਟਾਬੇਸ ਵਿੱਚ ਜੋੜਿਆ ਗਿਆ! ਹੁਣ ਤੁਸੀਂ ਕਹ ਸਕਦੇ ਹੋ: ਤੋਂ ਰਾਈਡ ਬੁੱਕ ਕਰੋ",
-      addLocationExample: "ਕਿਰਪਾ ਕਰਕੇ ਨਵੀਂ ਸਥਾਨ ਦਾ ਨਾਮ ਦੱਸੋ। ਉਦਾਹਰਣ: ਬੈਂਗਲੋਰ ਜੋੜ ਦਿਓ",
-      help_title: "📖 ਵੌਇਸ ਕਮਾਂਡ ਗਾਈਡ",
-      help_book: "🚗 ਰਾਈਡ ਬੁੱਕ ਕਰੋ",
-      help_book_cmd: "ਕਹੋ: \"[ਸਥਾਨ] ਤੋਂ [ਸਥਾਨ] ਰਾਈਡ ਬੁੱਕ ਕਰੋ\"",
-      help_book_desc: "ਉਦਾਹਰਣ: \"ਬਾਓੜਾ ਤੋਂ ਨਿਊ ਟਾਊਨ ਰਾਈਡ ਬੁੱਕ ਕਰੋ\", \"ਕੋਲਕਾਤਾ ਤੋਂ ਸੋਲਟ ਲੇਕ ਰਾਈਡ\"",
-      help_date: "ਫਿਰ ਤਾਰੀਖ ਕਹੋ: \"ਅੱਜ\", \"ਕੱਲ\", ਜਾਂ \"ਅਪ੍ਰੈਲ 5\"",
-      help_date_desc: "ਬੌਟ ਤੁਹਾਨੂੰ ਪੁੱਛੇਗਾ ਕਿ ਤੁਸੀਂ ਕਦੋਂ ਬੁੱਕ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ",
-      help_time: "ਫਿਰ ਸਮਾਂ ਕਹੋ: \"ਸਵੇਰ\", \"ਦੁਪਹਿਰ\", \"ਸ਼ਾਮ\", ਜਾਂ \"ਹੁਣ\"",
-      help_time_desc: "ਆਪਣਾ ਪਸੰਦ ਦਾ ਸਮਾਂ ਸਲਾਟ ਚੁਣੋ",
-      help_drivers: "👥 ਡ੍ਰਾਈਵਰ ਦਿਖਾਓ",
-      help_drivers_cmd: "ਕਹੋ: \"[ਸਥਾਨ] ਵਿੱਚ ਡ੍ਰਾਈਵਰ ਦਿਖਾਓ\"",
-      help_drivers_desc: "ਉਦਾਹਰਣ: \"ਬਾਓੜਾ ਵਿੱਚ ਡ੍ਰਾਈਵਰ ਦਿਖਾਓ\", \"ਨਿਊ ਟਾਊਨ ਡ੍ਰਾਈਵਰ\"",
-      help_drivers_info: "ਡ੍ਰਾਈਵਰ ਦਾ ਨਾਮ, ਰੇਟਿੰਗ ਅਤੇ ਫੋਨ ਨੰਬਰ",
-      help_drivers_info_desc: "ਖੇਤਰ ਦੇ ਅਨੁਸਾਰ ਉਪਲਬਧ ਡ੍ਰਾਈਵਰ ਲੱਭੋ",
-      help_prev: "📋 ਪਿਛਲੀ ਰਾਈਡ",
-      help_prev_cmd: "ਕਹੋ: \"ਪਿਛਲੀ ਰਾਈਡ ਦਿਖਾਓ\" ਜਾਂ \"ਇਤਿਹਾਸ\"",
-      help_prev_desc: "ਆਪਣੀ ਆਖਰੀ 5 ਬੁੱਕ ਕੀਤੀਆਂ ਰਾਈਡ ਦੇਖੋ",
-      help_rebook_cmd: "ਕਹੋ: \"ਮੁੜ ਬੁੱਕ ਕਰੋ\" ਜਾਂ \"ਦੋਬਾਰਾ ਬੁੱਕ ਕਰੋ\"",
-      help_rebook_desc: "ਉਸੇ ਪਿਕਅਪ ਅਤੇ ਡ੍ਰਾਪ ਆਫ ਨਾਲ ਆਪਣੀ ਆਖਰੀ ਰਾਈਡ ਨੂੰ ਜਲਦੀ ਮੁੜ ਬੁੱਕ ਕਰੋ",
-      help_addloc: "📍 ਨਵਾਂ ਸਥਾਨ ਜੋੜ ਦਿਓ",
-      help_addloc_cmd: "ਕਹੋ: \"[ਸ਼ਹਿਰ ਦਾ ਨਾਮ] ਸਥਾਨ ਜੋੜ ਦਿਓ\"",
-      help_addloc_desc: "ਉਦਾਹਰਣ: \"ਬੈਂਗਲੋਰ ਜੋੜ ਦਿਓ\", \"ਮੁੰਬਈ ਜੋੜ ਦਿਓ\"",
-      help_addloc_save: "ਨਵਾਂ ਸਥਾਨ ਡਾਟਾਬੇਸ ਵਿਚ ਸੁਰੱਖਿਅਤ ਹੋਵੇਗਾ",
-      help_addloc_save_desc: "ਭਵਿਸ਼ਯ ਦੀ ਬੁਕਿੰਗ ਲਈ ਤੁਰੰਤ ਵਰਤੋ",
-      help_locations: "📌 ਸਮਰਥਤ ਸਥਾਨ",
-      help_locations_list: "• ਬਾਓੜਾ • ਕੋਲਕਾਤਾ • ਸੋਲਟ ਲੇਕ • ਨਿਊ ਟਾਊਨ",
-      help_locations_desc: "ਬੁਕਿੰਗ ਕਮਾਂਡ ਵਿੱਚ ਇਹ ਸਥਾਨ ਵਰਤੋ। \"ਸਥਾਨ ਜੋੜ ਦਿਓ\" ਨਾਲ ਹੋਰ ਜੋੜੋ",
-      help_tips: "💡 ਪ੍ਰੋ ਟਿਪਸ:",
-      help_tips_mic: "• ਕਮਾਂਡ ਬੋਲਣ ਲਈ 🎤 ਬਟਨ ਵਰਤੋ (60 ਸਕਿੰਟ ਰਿਕਾਰਡਿੰਗ)",
-      help_tips_lang: "• ਬੋਲਣ ਤੋਂ ਪਹਿਲਾਂ ਡ੍ਰੌਪ ਡਾଉਨ ਤੋਂ ਭਾਸ਼ਾ ਚੁਣੋ",
-      help_tips_clear: "• ਬਿਓਸ਼ ਪਛਾਣ ਲਈ ਸਪਸ਼ਟ ਰੂਪ ਵਿੱਚ ਕਮਾਂਡ ਬੋਲੋ",
-      help_tips_text: "• ਮਾਈਕ ਦੀ ਸਮੱਸਿਆ ਲਈ ਹੱਥੀਂ ਟੈਕਸਟ ਟਾਈਪ ਕਰੋ",
-      selectDriver: "ਤੁਸੀਂ ਕਿਹੜਾ ਡ੍ਰਾਈਵਰ ਚੁਣਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
-      driverNum: "ਡ੍ਰਾਈਵਰ",
-      saySelect: "ਕਹੋ: \"ਡ੍ਰਾਈਵਰ 1 ਚੁਣੋ\" ਜਾਂ \"ਡ੍ਰਾਈਵਰ 2 ਨਾਲ ਬੁੱਕ ਕਰੋ\" ਜਾਂ \"ਡ੍ਰਾਈਵਰ 3 ਚੁਣੋ\"",
-      driverSelected: "ਡ੍ਰਾਈਵਰ ਚੁਣਿਆ ਗਿਆ:",
-      rating: "ਰੇਟਿੰਗ:",
-      phone: "ਫੋਨ:"
-    },
     ml: {
       hello: "👋 നമസ്കാരം! ഞാൻ നിങ്ങളെ എങ്ങനെ സഹായ്യ കേണ്ടതുണ്ട്? 💡 നമുക്കു പ്രയത്നിക്കാം:\n• \"ഹാവൌ എന്നിടത്തുനിന്ന് നിയു ടൗൺ വരെ റൈഡ് ബുക്ക് ചെയ്യുക\"\n• \"മുൻ യാത്ര കാണിക്കുക\"\n• \"പുതിയ സ്ഥാനം ചേർക്കുക\"\n• \"[എലാകയിലെ] ഡ്രൈവർ കാണിക്കുക\"",
       bookingFrom: "റൈഡ് ബുക്ക് ചെയ്യുന്നു",
@@ -751,28 +699,31 @@
     return translations[currentLanguage][key] || translations['en'][key];
   }
 
-  function changeLanguage(lang) {
-    currentLanguage = lang;
-    
-    // Stop current listening if active
-    if (listeningTimeout) {
-      stopListening();
-    }
-    
-    // Update speech recognition language
-    const langMap = {
-      'en': 'en-US',
-      'bn': 'bn-IN',
-      'hi': 'hi-IN',
-      'pa': 'pa-IN',
-      'ml': 'ml-IN'
-    };
+function changeLanguage(lang) {
+
+  const langMap = {
+    'en': 'en-US',
+    'bn': 'bn-IN',
+    'hi': 'hi-IN'
+  };
+
+  try {
+    recognition.stop();
+  } catch(e) {}
+
+  setTimeout(() => {
     recognition.lang = langMap[lang] || 'en-US';
-    
-    // Clear chat and show welcome message in new language
-    document.getElementById("chatMessages").innerHTML = '';
-    addBotMessage(t('hello'));
+  }, 200);
+
+  currentLanguage = lang;
+
+  if (listeningTimeout) {
+    stopListening();
   }
+
+  document.getElementById("chatMessages").innerHTML = '';
+  addBotMessage(t('hello'));
+}
 
   let driverDatabase = {
     "Howrah": [
@@ -820,10 +771,20 @@
   }
 
   // ============ CHATBOT INTERFACE ============
+  function speakText(message) {
+    if (!('speechSynthesis' in window)) return;
+    const utterance = new SpeechSynthesisUtterance(message);
+    utterance.lang = recognition.lang || 'en-US';
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  }
+
   function toggleChat() {
     document.getElementById("chatbotWindow").classList.toggle("active");
     if (document.getElementById("chatbotWindow").classList.contains("active")) {
-      addBotMessage(t('hello'));
+      const greeting = t('hello');
+      addBotMessage(greeting);
+      speakText("Welcome! " + greeting.replace(/\n/g, ' '));
     }
   }
 
@@ -861,8 +822,8 @@
 
   // ============ SPEECH RECOGNITION ============
   const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-  recognition.continuous = true;        // Keep listening for multiple phrases
-  recognition.interimResults = true;    // Get real-time results
+  recognition.continuous = false;        // Keep listening for multiple phrases
+  recognition.interimResults = false;    // Get real-time results
   recognition.maxAlternatives = 1;      // Get best match only
   recognition.lang = "en-US";
   
@@ -874,6 +835,10 @@
     const micBtn = document.getElementById("micBtn");
     micBtn.classList.add("listening");
     micBtn.textContent = "🎤 Listening... (60s)";
+    
+    // Spoken feedback on mic start
+    const prompt = "Welcome! How can I help you? Please say your pickup and drop location.";
+    speakText(prompt);
     
     listeningStartTime = Date.now();
     
@@ -914,7 +879,8 @@
   }
 
   recognition.onstart = function() {
-    console.log("Speech recognition started");
+    console.log("🎤 Mic started");
+    document.getElementById('result').innerText = 'Listening... speak now';
   };
 
   recognition.onresult = function(event) {
@@ -931,11 +897,22 @@
     if (isFinal) {
       const micBtn = document.getElementById("micBtn");
       
+      const recognisedText = transcript.trim();
+      console.log("🎤 Recognised:", recognisedText);
+      document.getElementById('result').innerText = 'Recognised: ' + recognisedText;
+
+      // if bot prompt is picked up as speech, ignore it
+      const opponent = recognisedText.toLowerCase();
+      if (opponent.includes("please say your pickup") || opponent.includes("how can i help you") || opponent.includes("welcome")) {
+        console.log("Ignoring assistant voice playback as user input:", recognisedText);
+        return;
+      }
+
       // If user speaks, reset the timer
-      if (transcript.trim()) {
-        addUserMessage(transcript);
+      if (recognisedText) {
+        addUserMessage(recognisedText);
         // DON'T use toLowerCase() for non-Latin scripts - pass raw text
-        processVoiceCommand(transcript);
+        processVoiceCommand(recognisedText);
         
         // Restart timer for next input
         if (listeningTimeout) {
@@ -951,19 +928,29 @@
 
   recognition.onerror = function(event) {
     console.log("Speech recognition error:", event.error);
-    // Don't stop on errors, keep listening
+    const resultEl = document.getElementById('result');
+    resultEl.innerText = 'Speech recognition error: ' + event.error;
+    addBotMessage('⚠️ Speech recognition error: ' + event.error);
+    // Don't stop on errors; user can retry
   };
 
   recognition.onend = function() {
-    console.log("Speech recognition ended");
-    stopListening();
-  };
+  if (document.getElementById("micBtn").classList.contains("listening")) {
+    recognition.start(); // restart automatically
+  }
+};
 
   // ============ COMMAND PROCESSING ============
   function processVoiceCommand(rawText) {
     // Don't use toLowerCase() for non-Latin scripts
     let text = rawText.trim();
     let textLower = text.toLowerCase();
+
+    // Ignore assistant voice prompts if they are recognized back as user text
+    if (textLower.includes("please say") || textLower.includes("how can i help") || textLower === "welcome") {
+      console.log("Ignored maintenance phrase:", text);
+      return;
+    }
 
     // If we're in the middle of booking, handle step-specific responses first
     if (currentBooking.step === 'date') {
@@ -985,7 +972,10 @@
     if (textLower.includes("book") || textLower.includes("ride") || 
         textLower.includes("buuk") || text.includes("बुक") || 
         text.includes("বুক") || text.includes("ਬੁੱਕ") ||
-        textLower.includes("buuck") || text.includes("बुक्क")) {
+        textLower.includes("buuck") || text.includes("बुक्क") ||
+        textLower.includes("yatra") || text.includes("যাত্রা") || text.includes("यात्रा") ||
+        text.includes("রাইড") || text.includes("राइड") ||
+        text.includes("বুক করুন") || text.includes("बुक करें")) {
       handleBookRideCommand(text);
     }
 
@@ -993,7 +983,9 @@
     else if (text.includes("previous") || text.includes("history") ||
              text.includes("पिछल") || text.includes("पुरान") ||
              text.includes("আগ") || text.includes("পুরান") ||
-             text.includes("ਪਿਛਲ") || text.includes("ਮੁ")) {
+             text.includes("ਪਿਛਲ") || text.includes("ਮੁ") ||
+             text.includes("পূর্ববর্তী") || text.includes("पुरानी") ||
+             text.includes("পুরানো") || text.includes("पुरानी")) {
       showPreviousRides();
     }
 
@@ -1001,7 +993,9 @@
     else if (textLower.includes("driver") || textLower.includes("available") ||
              text.includes("ड्राइव") || text.includes("चालक") ||
              text.includes("চালক") || text.includes("ڈرائیو") ||
-             text.includes("ਡ੍ਰਾਈਵਰ") || text.includes("ഡ്രൈവ")) {
+             text.includes("ਡ੍ਰਾਈਵਰ") || text.includes("ഡ്രൈവ") ||
+             text.includes("ড্রাইভার") || text.includes("ड्राइवर") ||
+             text.includes("চালক দেখান") || text.includes("ड्राइवर दिखाएं")) {
       handleDriverCommand(text);
     }
 
@@ -1010,7 +1004,8 @@
              text.includes("जोड़") || text.includes("नया") ||
              text.includes("যোগ") || text.includes("নতুন") ||
              text.includes("ਜੋੜ") || text.includes("ਸਥਾਨ") ||
-             text.includes("ചേർ") || text.includes("പുതിയ")) {
+             text.includes("ചേർ") || text.includes("പുതിയ") ||
+             text.includes("স্থান যোগ করুন") || text.includes("स्थान जोड़ें")) {
       handleAddLocation(text);
     }
 
@@ -1019,7 +1014,8 @@
              text.includes("फिर") || text.includes("दोबारा") ||
              text.includes("আবার") || text.includes("পুনরায়") ||
              text.includes("ਮੁੜ") || text.includes("ਦੋਬਾਰਾ") ||
-             text.includes("വീണ്ടും")) {
+             text.includes("വീണ്ടും") ||
+             text.includes("পুনরায় বুক করুন") || text.includes("फिर से बुक करें")) {
       handleRebookCommand();
     }
 
@@ -1030,32 +1026,31 @@
 
   // ============ BOOKING LOGIC ============
   function handleBookRideCommand(text) {
-    let from = "", to = "";
+    const detected = detectLocations(text);
+    let from = null;
+    let to = null;
 
-    // Extract pickup and drop with better matching - support all language variants
-    for (const [location, variants] of Object.entries(locationVariants)) {
-      for (const variant of variants) {
-        // Case-insensitive for Latin, direct match for scripts
-        if (text.toLowerCase().includes(variant.toLowerCase()) || text.includes(variant)) {
-          if (!from) {
-            from = location;
-          } else if (!to) {
-            to = location;
-          }
-        }
-      }
-    }
+    if (detected.length >= 2) {
+      from = detected[0];
+      to = detected[1];
 
-    if (from && to) {
       if (from !== to) {
         bookRideWithVoice(from, to);
+        const dateTimeDone = autoFillDateTimeFromText(text);
+        if (!dateTimeDone) {
+          setTimeout(() => addBotMessage(t('askDate')), 1000);
+        }
+        return;
       } else {
         addBotMessage(t('error_same_location'));
+        return;
       }
-    } else {
-      const locationsList = allLocations.slice(0, 8).join(", ");
-      addBotMessage(`${t('error_no_locations')} ${allLocations[0]} to ${allLocations[1]}". ${t('availLocations')} ${locationsList}`);
     }
+
+    addBotMessage("Please say both pickup and drop location");
+
+    const locationsList = allLocations.slice(0, 8).join(", ");
+    addBotMessage(`${t('error_no_locations')} ${allLocations[0]} to ${allLocations[1]}. ${t('availLocations')} ${locationsList}`);
   }
 
   function bookRideWithVoice(pickup, dropoff) {
@@ -1063,6 +1058,11 @@
     currentBooking.pickup = pickup;
     currentBooking.dropoff = dropoff;
     currentBooking.step = 'date';
+
+    // Mirror voice input to the form fields
+    document.getElementById('from').value = pickup;
+    document.getElementById('to').value = dropoff;
+    updateBookingStatus();
 
     // Get top drivers for display
     const topDrivers = getTopDrivers(pickup);
@@ -1072,11 +1072,171 @@
     });
 
     addBotMessage(`✅ Great! ${t('bookingFrom')} <b>${pickup}</b> ${t('bookingTo')} <b>${dropoff}</b>\n\n${driverList}`);
-    
-    // Ask for date
-    setTimeout(() => {
-      addBotMessage(t('askDate'));
-    }, 1000);
+  }
+
+  function dateToHtmlDate(dateObj) {
+    if (!dateObj) return "";
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  function timingToHtmlTime(timing) {
+    if (!timing) return "";
+
+    const clean = timing.toLowerCase();
+    if (clean.includes("now")) {
+      const d = new Date();
+      return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+    }
+    if (clean.includes("morning")) return "08:00";
+    if (clean.includes("afternoon")) return "13:00";
+    if (clean.includes("evening")) return "17:00";
+    if (clean.includes("night")) return "20:00";
+
+    const timeMatch = timing.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i);
+    if (timeMatch) {
+      let hour = parseInt(timeMatch[1], 10);
+      const minute = timeMatch[2] ? parseInt(timeMatch[2], 10) : 0;
+      const meridiem = timeMatch[3];
+      if (meridiem) {
+        if (meridiem.toLowerCase().includes('pm') && hour < 12) hour += 12;
+        if (meridiem.toLowerCase().includes('am') && hour === 12) hour = 0;
+      }
+      hour = (hour % 24 + 24) % 24;
+      return `${String(hour).padStart(2,'0')}:${String(minute).padStart(2,'0')}`;
+    }
+    return "";
+  }
+
+  function updateBookingStatus() {
+    const status = document.getElementById('bookingStatus');
+    if (!status) return;
+
+    const pickup = currentBooking.pickup || document.getElementById('from').value || '—';
+    const dropoff = currentBooking.dropoff || document.getElementById('to').value || '—';
+    const date = currentBooking.dateValue || document.getElementById('date').value || '—';
+    const time = currentBooking.timeValue || document.getElementById('time').value || '—';
+
+    status.innerHTML = `<b>Detected booking</b>: ${pickup} → ${dropoff} on ${date} at ${time}`;
+  }
+
+  function setDateFromVoiceText(text) {
+    text = text.trim();
+    const textLower = text.toLowerCase();
+
+    if (textLower.match(/\btoday\b/) || textLower.match(/\baj\b/) || textLower.match(/\baaj\b/) ||
+        text.includes("आज") || text.includes("আজ") || text.includes("ਅੱ")) {
+      currentBooking.date = "Today";
+      const dateValue = dateToHtmlDate(new Date());
+      currentBooking.dateValue = dateValue;
+      document.getElementById('date').value = dateValue;
+      updateBookingStatus();
+      return true;
+    }
+
+    if (textLower.match(/\btomorrow\b/) || textLower.match(/\bkal\b/) || textLower.match(/\bkaal\b/) ||
+        text.includes("कल") || text.includes("আগামীকাল") || text.includes("ਕੱਲ")) {
+      currentBooking.date = "Tomorrow";
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const dateValue = dateToHtmlDate(tomorrow);
+      currentBooking.dateValue = dateValue;
+      document.getElementById('date').value = dateValue;
+      updateBookingStatus();
+      return true;
+    }
+
+    if (textLower.match(/\bday after tomorrow\b/) || textLower.match(/\baftertomorrow\b/) || textLower.match(/\bparso\b/) ||
+        text.includes("परसों") || text.includes("তৃতীয়দিন")) {
+      currentBooking.date = "Day after tomorrow";
+      const afterTomorrow = new Date();
+      afterTomorrow.setDate(afterTomorrow.getDate() + 2);
+      const dateValue = dateToHtmlDate(afterTomorrow);
+      currentBooking.dateValue = dateValue;
+      document.getElementById('date').value = dateValue;
+      updateBookingStatus();
+      return true;
+    }
+
+    const months = ["january","february","march","april","may","june","july","august","september","october","november","december"];
+    for (let month of months) {
+      const dateMatch = textLower.match(new RegExp(`(\\d{1,2})\\s+${month}|${month}\\s+(\\d{1,2})`, "i"));
+      if (dateMatch) {
+        const day = dateMatch[1] || dateMatch[2];
+        currentBooking.date = `${day} ${month.charAt(0).toUpperCase() + month.slice(1)}`;
+        const monthIndex = months.indexOf(month);
+        const year = new Date().getFullYear();
+        const candidateDate = new Date(year, monthIndex, parseInt(day, 10));
+        if (!isNaN(candidateDate.getTime())) {
+          const selectedDateValue = dateToHtmlDate(candidateDate);
+          currentBooking.dateValue = selectedDateValue;
+          document.getElementById('date').value = selectedDateValue;
+          updateBookingStatus();
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  function setTimeFromVoiceText(text) {
+    text = text.trim();
+    const textLower = text.toLowerCase();
+    let timing = null;
+
+    if (textLower.match(/\bnow\b/) || textLower.match(/\bforan\b/) || textLower.match(/\babhi\b/) ||
+        text.includes("अभी") || text.includes("এখন") || text.includes("ਹੁਣ")) {
+      timing = "Now";
+    } else if (textLower.match(/\bmorning\b/) || textLower.match(/\bsabah\b/) || textLower.match(/\bsavere\b/) ||
+               text.includes("सुबह") || text.includes("রাতে") || text.includes("ਸਵੇਰ")) {
+      timing = "Morning (8-11 AM)";
+    } else if (textLower.match(/\bafternoon\b/) || textLower.match(/\bdophar\b/) || textLower.match(/\bdupehri\b/) || textLower.match(/\bupahari\b/) ||
+               text.includes("दोपहर") || text.includes("দুপুর") || text.includes("ਦੁਪਹਿਰ")) {
+      timing = "Afternoon (12-3 PM)";
+    } else if (textLower.match(/\bevening\b/) || textLower.match(/\bshaam\b/) || textLower.match(/\bshaaam\b/) ||
+               text.includes("शाम") || text.includes("সন্ধ্যা") || text.includes("ਸ਼ਾਮ")) {
+      timing = "Evening (4-7 PM)";
+    } else if (textLower.match(/\bnight\b/) || textLower.match(/\brat\b/) || textLower.match(/\braat\b/) ||
+               text.includes("रात") || text.includes("রাত") || text.includes("ਰਾਤ")) {
+      timing = "Night (8 PM onwards)";
+    } else {
+      const timeMatch = textLower.match(/(\d{1,2})\s*(am|pm|a\.m|p\.m|o'?clock|oclock|:)/i);
+      if (timeMatch) {
+        timing = timeMatch[0];
+      }
+    }
+
+    if (timing) {
+      currentBooking.timing = timing;
+      currentBooking.timeValue = timingToHtmlTime(timing);
+      document.getElementById('time').value = currentBooking.timeValue || '';
+      updateBookingStatus();
+      return true;
+    }
+
+    return false;
+  }
+
+  function autoFillDateTimeFromText(text) {
+    const dateFound = setDateFromVoiceText(text);
+    const timeFound = setTimeFromVoiceText(text);
+
+    if (dateFound && timeFound) {
+      currentBooking.step = 'driver';
+      showDriverSelection();
+      return true;
+    }
+
+    if (dateFound) {
+      currentBooking.step = 'timing';
+      addBotMessage(t('askTime'));
+      return true;
+    }
+
+    return false;
   }
 
   function handleDateResponse(text) {
@@ -1087,7 +1247,11 @@
     if (textLower.match(/\btoday\b/) || textLower.match(/\baj\b/) || textLower.match(/\baaj\b/) ||
         text.includes("आज") || text.includes("আজ") || text.includes("ਅੱ")) {
       currentBooking.date = "Today";
-      addBotMessage(`${t('dateSet')} <b>Today</b>`);
+      const dateValue = dateToHtmlDate(new Date());
+      currentBooking.dateValue = dateValue;
+      document.getElementById('date').value = dateValue;
+      updateBookingStatus();
+      addBotMessage(`${t('dateSet')} <b>Today</b> (<i>${dateValue}</i>)`);
       currentBooking.step = 'timing';
       setTimeout(() => {
         addBotMessage(t('askTime'));
@@ -1099,7 +1263,13 @@
     if (textLower.match(/\btomorrow\b/) || textLower.match(/\bkal\b/) || textLower.match(/\bkaal\b/) ||
         text.includes("कल") || text.includes("আগামীকাল") || text.includes("ਕੱਲ")) {
       currentBooking.date = "Tomorrow";
-      addBotMessage(`${t('dateSet')} <b>Tomorrow</b>`);
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const dateValue = dateToHtmlDate(tomorrow);
+      currentBooking.dateValue = dateValue;
+      document.getElementById('date').value = dateValue;
+      updateBookingStatus();
+      addBotMessage(`${t('dateSet')} <b>Tomorrow</b> (<i>${dateValue}</i>)`);
       currentBooking.step = 'timing';
       setTimeout(() => {
         addBotMessage(t('askTime'));
@@ -1111,7 +1281,13 @@
     if (textLower.match(/\bday after tomorrow\b/) || textLower.match(/\baftertomorrow\b/) || textLower.match(/\bparso\b/) ||
         text.includes("परसों") || text.includes("তৃতীয়দিন")) {
       currentBooking.date = "Day after tomorrow";
-      addBotMessage(`${t('dateSet')} <b>Day after tomorrow</b>`);
+      const afterTomorrow = new Date();
+      afterTomorrow.setDate(afterTomorrow.getDate() + 2);
+      const dateValue = dateToHtmlDate(afterTomorrow);
+      currentBooking.dateValue = dateValue;
+      document.getElementById('date').value = dateValue;
+      updateBookingStatus();
+      addBotMessage(`${t('dateSet')} <b>Day after tomorrow</b> (<i>${dateValue}</i>)`);
       currentBooking.step = 'timing';
       setTimeout(() => {
         addBotMessage(t('askTime'));
@@ -1128,8 +1304,26 @@
       const dateMatch = textLower.match(new RegExp(`(\\d{1,2})\\s+${month}|${month}\\s+(\\d{1,2})`, "i"));
       if (dateMatch || text.includes(month)) {
         const day = dateMatch ? (dateMatch[1] || dateMatch[2]) : "";
-        currentBooking.date = day ? `${day} ${month.charAt(0).toUpperCase() + month.slice(1)}` : month;
-        addBotMessage(`${t('dateSet')} <b>${currentBooking.date}</b>`);
+        const monthName = month.charAt(0).toUpperCase() + month.slice(1);
+        currentBooking.date = day ? `${day} ${monthName}` : monthName;
+
+        if (day && ["january","february","march","april","may","june","july","august","september","october","november","december"].includes(month.toLowerCase())) {
+          const monthIndex = ["january","february","march","april","may","june","july","august","september","october","november","december"].indexOf(month.toLowerCase());
+          const year = new Date().getFullYear();
+          const candidateDate = new Date(year, monthIndex, parseInt(day, 10));
+          if (!isNaN(candidateDate.getTime())) {
+            const selectedDateValue = dateToHtmlDate(candidateDate);
+            currentBooking.dateValue = selectedDateValue;
+            document.getElementById('date').value = selectedDateValue;
+            addBotMessage(`${t('dateSet')} <b>${currentBooking.date}</b> (<i>${selectedDateValue}</i>)`);
+          } else {
+            addBotMessage(`${t('dateSet')} <b>${currentBooking.date}</b>`);
+          }
+        } else {
+          addBotMessage(`${t('dateSet')} <b>${currentBooking.date}</b>`);
+        }
+
+        updateBookingStatus();
         currentBooking.step = 'timing';
         setTimeout(() => {
           addBotMessage(t('askTime'));
@@ -1183,8 +1377,14 @@
     // If timing found, show driver selection
     if (timing) {
       currentBooking.timing = timing;
+      currentBooking.timeValue = timingToHtmlTime(timing);
       currentBooking.step = 'driver';
-      addBotMessage(`${t('timeSet')} <b>${timing}</b>`);
+      const timeValue = currentBooking.timeValue;
+      if (timeValue) {
+        document.getElementById('time').value = timeValue;
+      }
+      updateBookingStatus();
+      addBotMessage(`${t('timeSet')} <b>${timing}</b> ${timeValue ? `(picked ${timeValue})` : ''}`);
       setTimeout(() => {
         showDriverSelection();
       }, 1500);
@@ -1281,6 +1481,8 @@
       // Fill form
       document.getElementById("from").value = pickup;
       document.getElementById("to").value = dropoff;
+      if (currentBooking.dateValue) document.getElementById("date").value = currentBooking.dateValue;
+      if (currentBooking.timeValue) document.getElementById("time").value = currentBooking.timeValue;
       
       // Navigate to payment
       localStorage.setItem('rideAmount', '250');
